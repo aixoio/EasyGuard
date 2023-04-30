@@ -111,6 +111,7 @@ public class ClaimCommand implements CommandExecutor {
                 sender.sendMessage(ChatColor.GREEN + "Claim created with the of " + ChatColor.BOLD + ChatColor.LIGHT_PURPLE + name);
 
                 EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s.location", player.getDisplayName(), name), new Location(player.getWorld(), x1, y1, z1));
+                EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s.truename", player.getDisplayName(), name), args[0]);
                 EasyGuard.getPlugin().saveConfig();
 
 
