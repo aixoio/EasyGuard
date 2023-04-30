@@ -18,6 +18,9 @@ public final class EasyGuard extends JavaPlugin {
 
         EasyGuard.PLUGIN = this;
 
+        this.getConfig().options().copyDefaults();
+        this.saveDefaultConfig();
+
         this.getLogger().info("Started");
 
     }
