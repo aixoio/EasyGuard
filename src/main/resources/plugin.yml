@@ -3,3 +3,6 @@ version: '${project.version}'
 main: github.aixoio.easyguard.EasyGuard
 api-version: 1.19
 authors: [aixoio]
+depend:
+  - WorldGuard
+  - WorldEdit
