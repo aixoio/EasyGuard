@@ -108,7 +108,7 @@ public class ClaimCommand implements CommandExecutor {
                         get(localPlayer.getWorld()).
                         addRegion(protectedCuboidRegion);
 
-                sender.sendMessage(ChatColor.GREEN + "Claim created with the of " + ChatColor.BOLD + ChatColor.LIGHT_PURPLE + name);
+                sender.sendMessage(ChatColor.GREEN + "Claim created with the name of " + ChatColor.BOLD + ChatColor.LIGHT_PURPLE + args[0]);
 
                 EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s.location", player.getDisplayName(), args[0]), new Location(player.getWorld(), x1, y1, z1));
                 EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s.truename", player.getDisplayName(), args[0]), name);
