@@ -6,12 +6,19 @@ public final class EasyGuard extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+
+        this.getLogger().info("Starting...");
+
+        this.getLogger().info("Started");
 
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+
+        this.getLogger().info("Stopping...");
+
+        this.getLogger().info("Stopped");
+
     }
 }
