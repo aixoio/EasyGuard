@@ -19,6 +19,23 @@ public final class EasyGuard extends JavaPlugin {
 
         EasyGuard.PLUGIN = this;
 
+
+        if (EasyGuard.getWorldGuard() == null) {
+
+            this.getLogger().warning("Disabling plugin because WorldGuard is not installed!");
+
+            this.getServer().getPluginManager().disablePlugin(this);
+
+        }
+
+        if (EasyGuard.getWorldEdit() == null) {
+
+            this.getLogger().warning("Disabling plugin because WorldEdit is not installed!");
+
+            this.getServer().getPluginManager().disablePlugin(this);
+
+        }
+
         this.getConfig().options().copyDefaults();
         this.saveDefaultConfig();
 
