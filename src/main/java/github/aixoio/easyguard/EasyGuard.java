@@ -3,6 +3,7 @@ package github.aixoio.easyguard;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import github.aixoio.easyguard.commands.ClaimCommand;
+import github.aixoio.easyguard.commands.ClaimsCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -40,6 +41,7 @@ public final class EasyGuard extends JavaPlugin {
         this.saveDefaultConfig();
 
         this.getCommand("claim").setExecutor(new ClaimCommand());
+        this.getCommand("claims").setExecutor(new ClaimsCommand());
 
         this.getLogger().info("Started");
 
