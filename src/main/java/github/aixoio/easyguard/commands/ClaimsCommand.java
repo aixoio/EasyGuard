@@ -33,6 +33,14 @@ public class ClaimsCommand implements CommandExecutor {
 
         Set<String> dataKeys = EasyGuard.getPlugin().getConfig().getConfigurationSection("data." + playername).getKeys(false);
 
+
+        if (dataKeys.size() == 0) {
+
+            sender.sendMessage(ChatColor.RED + "You do not have any claims!");
+            return true;
+
+        }
+
         sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "You own or are trusted in the following claims");
 
         for (String key : dataKeys) {
