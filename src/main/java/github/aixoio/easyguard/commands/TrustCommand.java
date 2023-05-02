@@ -93,10 +93,6 @@ public class TrustCommand implements CommandExecutor {
 
                     region.setOwners(owners);
 
-                    EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s.location", targetPlayerUsername, region.getId()), targetLocaiton);
-                    EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s.truename", targetPlayerUsername, region.getId()), location);
-                    EasyGuard.getPlugin().saveConfig();
-
                     sender.sendMessage(ChatColor.GREEN + targetPlayerUsername + " was added to " + region.getId());
 
                 }
@@ -149,9 +145,6 @@ public class TrustCommand implements CommandExecutor {
                     owners.removePlayer(targetPlayer);
 
                     region.setOwners(owners);
-
-                    EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s", targetPlayerUsername, region.getId()), null);
-                    EasyGuard.getPlugin().saveConfig();
 
                     sender.sendMessage(ChatColor.GREEN + targetPlayerUsername + " was removed from " + region.getId());
 
