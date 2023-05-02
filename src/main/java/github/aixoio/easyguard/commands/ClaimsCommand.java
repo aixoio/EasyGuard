@@ -41,7 +41,7 @@ public class ClaimsCommand implements CommandExecutor {
 
         }
 
-        sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "You own or are trusted in the following claims");
+        sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "You own the following claims");
 
         for (String key : dataKeys) {
 
