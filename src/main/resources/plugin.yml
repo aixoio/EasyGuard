@@ -23,3 +23,9 @@ commands:
     description: Lets you trust and untrust players from your claims
     usage: /<command> [add|remove] [options]
     permission: easyguard.trust
+  delete-claim:
+    description: Lets players delete claims
+    usage: /<command> [claim-name]
+    permission: easyguard.delete-claim
+    aliases:
+      - remove-claim
