@@ -52,7 +52,6 @@ public class TrustCommand implements CommandExecutor {
 
         if (mode.toLowerCase().equals("add") && args.length < 3) return false;
         if (mode.toLowerCase().equals("remove") && args.length < 3) return false;
-        if (mode.toLowerCase().equals("list") && args.length < 2) return false;
 
 
         if (mode.toLowerCase().equals("add")) {
