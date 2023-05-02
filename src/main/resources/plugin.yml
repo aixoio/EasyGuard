@@ -19,3 +19,7 @@ commands:
     description: Tells you all of the claims you are currently in
     usage: /<command>
     permission: easyguard.current-claim
+  trust:
+    description: Lets you trust and untrust players from your claims
+    usage: /<command> [add|remove] [options]
+    permission: easyguard.trust

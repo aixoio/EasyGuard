@@ -5,6 +5,7 @@ import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import github.aixoio.easyguard.commands.ClaimCommand;
 import github.aixoio.easyguard.commands.ClaimsCommand;
 import github.aixoio.easyguard.commands.CurrentClaimCommand;
+import github.aixoio.easyguard.commands.TrustCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -44,6 +45,7 @@ public final class EasyGuard extends JavaPlugin {
         this.getCommand("claim").setExecutor(new ClaimCommand());
         this.getCommand("claims").setExecutor(new ClaimsCommand());
         this.getCommand("current-claim").setExecutor(new CurrentClaimCommand());
+        this.getCommand("trust").setExecutor(new TrustCommand());
 
         this.getLogger().info("Started");
 
