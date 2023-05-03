@@ -29,3 +29,9 @@ commands:
     permission: easyguard.delete-claim
     aliases:
       - remove-claim
+  flag:
+    description: Lets you control flags on your claims
+    usage: /<command> [list|add|remove] [options]
+    permission: easyguard.flag
+    aliases:
+      - flags

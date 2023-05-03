@@ -44,6 +44,7 @@ public final class EasyGuard extends JavaPlugin {
         this.getCommand("current-claim").setExecutor(new CurrentClaimCommand());
         this.getCommand("trust").setExecutor(new TrustCommand());
         this.getCommand("delete-claim").setExecutor(new DeleteClaimCommand());
+        this.getCommand("flag").setExecutor(new FlagCommand());
 
         this.getLogger().info("Started");
 
