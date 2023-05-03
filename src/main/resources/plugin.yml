@@ -9,7 +9,7 @@ depend:
 commands:
   claim:
     description: You can use this command to claim land
-    usage: /<command> <name> <x> <y> z> <x> <y> <z>
+    usage: /<command> <name> <x> <y> <z> <x> <y> <z>
     permission: easyguard.claim
   claims:
     description: You can use this command to see who has claimed land
