@@ -144,6 +144,13 @@ public class TrustCommand implements CommandExecutor {
 
                     owners.removePlayer(targetPlayer);
 
+                    if (owners.size() == 0 || !owners.contains(targetPlayer)) {
+
+                        sender.sendMessage(ChatColor.RED + "To delete this claim use /remove-claim " + location);
+                        return true;
+
+                    }
+
                     region.setOwners(owners);
 
                     sender.sendMessage(ChatColor.GREEN + targetPlayerUsername + " was removed from " + region.getId());
