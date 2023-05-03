@@ -2,7 +2,12 @@ package github.aixoio.easyguard;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import github.aixoio.easyguard.commands.*;
+import github.aixoio.easyguard.commands.ClaimCommand;
+import github.aixoio.easyguard.commands.ClaimsCommand;
+import github.aixoio.easyguard.commands.CurrentClaimCommand;
+import github.aixoio.easyguard.commands.DeleteClaimCommand;
+import github.aixoio.easyguard.commands.FlagCommand;
+import github.aixoio.easyguard.commands.TrustCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
