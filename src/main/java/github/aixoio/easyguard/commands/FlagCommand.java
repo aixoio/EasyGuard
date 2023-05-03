@@ -16,6 +16,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class FlagCommand implements CommandExecutor {
 
     @Override
@@ -56,7 +60,71 @@ public class FlagCommand implements CommandExecutor {
 
         } else if (mode.equalsIgnoreCase("add")) {
 
-            // TODO: Add the add flag sub-command
+            if (args.length < 3) return false;
+
+            String inFlag = args[1].toUpperCase();
+            String location = args[2];
+
+            ArrayList<String> flagsNames = new ArrayList<String>(Arrays.asList(this.getFlagsNames()));
+
+            if (!flagsNames.contains(inFlag)) {
+
+                sender.sendMessage(ChatColor.RED + "Flag not found!");
+
+            } else {
+
+                try {
+
+                    Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+
+                    if (targetLocaiton == null) {
+
+                        sender.sendMessage(ChatColor.RED + "Not found!");
+                        return true;
+
+                    }
+
+                    StateFlag flagToAdd = this.stringToFlag(inFlag);
+
+                    if (flagToAdd == null) {
+
+                        sender.sendMessage(ChatColor.RED + "Not found!");
+                        return true;
+
+                    }
+
+                    BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
+
+                    ApplicableRegionSet applicableRegionSet = WorldGuard
+                            .getInstance()
+                            .getPlatform()
+                            .getRegionContainer()
+                            .get(localPlayer.getWorld())
+                            .getApplicableRegions(
+                                    targetLocaitonAsVector
+                            );
+
+                    for (ProtectedRegion region : applicableRegionSet) {
+
+                        DefaultDomain owners = region.getOwners();
+
+                        if (!owners.contains(localPlayer)) continue;
+
+                        region.setFlag(flagToAdd, StateFlag.State.ALLOW);
+
+                        sender.sendMessage(ChatColor.GREEN + "Add flag to " + region.getId());
+
+                    }
+
+                } catch (Exception e) {
+
+                    sender.sendMessage(ChatColor.RED + "Not found!");
+
+                    EasyGuard.getPlugin().getLogger().info(e.toString());
+
+                }
+
+            }
 
         } else if (mode.equalsIgnoreCase("remove")) {
 
@@ -225,6 +293,294 @@ public class FlagCommand implements CommandExecutor {
         };
 
         return flags;
+
+    }
+
+    public StateFlag stringToFlag(String str) {
+
+        switch (str) {
+
+            case "PASSTHROUGH":
+
+                return Flags.PASSTHROUGH;
+
+            case "BUILD":
+
+                return Flags.BUILD;
+
+            case "BLOCK_BREAK":
+
+                return Flags.BLOCK_BREAK;
+
+            case "BLOCK_PLACE":
+
+                return Flags.BLOCK_PLACE;
+
+            case "USE":
+
+                return Flags.USE;
+
+            case "INTERACT":
+
+                return Flags.INTERACT;
+
+            case "DAMAGE_ANIMALS":
+
+                return Flags.DAMAGE_ANIMALS;
+
+            case "PVP":
+
+                return Flags.PVP;
+
+            case "SLEEP":
+
+                return Flags.SLEEP;
+
+            case "RESPAWN_ANCHORS":
+
+                return Flags.RESPAWN_ANCHORS;
+
+            case "TNT":
+
+                return Flags.TNT;
+
+            case "CHEST_ACCESS":
+
+                return Flags.CHEST_ACCESS;
+
+            case "PLACE_VEHICLE":
+
+                return Flags.PLACE_VEHICLE;
+
+            case "DESTROY_VEHICLE":
+
+                return Flags.DESTROY_VEHICLE;
+
+            case "LIGHTER":
+
+                return Flags.LIGHTER;
+
+            case "RIDE":
+
+                return Flags.RIDE;
+
+            case "POTION_SPLASH":
+
+                return Flags.POTION_SPLASH;
+
+            case "ITEM_FRAME_ROTATE":
+
+                return Flags.ITEM_FRAME_ROTATE;
+
+            case "TRAMPLE_BLOCKS":
+
+                return Flags.TRAMPLE_BLOCKS;
+
+            case "FIREWORK_DAMAGE":
+
+                return Flags.FIREWORK_DAMAGE;
+
+            case "USE_ANVIL":
+
+                return Flags.USE_ANVIL;
+
+            case "USE_DRIPLEAF":
+
+                return Flags.USE_DRIPLEAF;
+
+            case "ITEM_PICKUP":
+
+                return Flags.ITEM_PICKUP;
+
+            case "ITEM_DROP":
+
+                return Flags.ITEM_DROP;
+
+            case "EXP_DROPS":
+
+                return Flags.EXP_DROPS;
+
+            case "MOB_DAMAGE":
+
+                return Flags.MOB_DAMAGE;
+
+            case "CREEPER_EXPLOSION":
+
+                return Flags.CREEPER_EXPLOSION;
+
+            case "ENDERDRAGON_BLOCK_DAMAGE":
+
+                return Flags.ENDERDRAGON_BLOCK_DAMAGE;
+
+            case "GHAST_FIREBALL":
+
+                return Flags.GHAST_FIREBALL;
+
+            case "OTHER_EXPLOSION":
+
+                return Flags.OTHER_EXPLOSION;
+
+            case "WITHER_DAMAGE":
+
+                return Flags.WITHER_DAMAGE;
+
+            case "ENDER_BUILD":
+
+                return Flags.ENDER_BUILD;
+
+            case "SNOWMAN_TRAILS":
+
+                return Flags.SNOWMAN_TRAILS;
+
+            case "RAVAGER_RAVAGE":
+
+                return Flags.RAVAGER_RAVAGE;
+
+            case "ENTITY_PAINTING_DESTROY":
+
+                return Flags.ENTITY_PAINTING_DESTROY;
+
+            case "ENTITY_ITEM_FRAME_DESTROY":
+
+                return Flags.ENTITY_ITEM_FRAME_DESTROY;
+
+            case "MOB_SPAWNING":
+
+                return Flags.MOB_SPAWNING;
+
+            case "PISTONS":
+
+                return Flags.PISTONS;
+
+            case "FIRE_SPREAD":
+
+                return Flags.FIRE_SPREAD;
+
+            case "LAVA_FIRE":
+
+                return Flags.LAVA_FIRE;
+
+            case "LIGHTNING":
+
+                return Flags.LIGHTNING;
+
+            case "SNOW_FALL":
+
+                return Flags.SNOW_FALL;
+
+            case "SNOW_MELT":
+
+                return Flags.SNOW_MELT;
+
+            case "ICE_FORM":
+
+                return Flags.ICE_FORM;
+
+            case "ICE_MELT":
+
+                return Flags.ICE_MELT;
+
+            case "FROSTED_ICE_MELT":
+
+                return Flags.FROSTED_ICE_MELT;
+
+            case "FROSTED_ICE_FORM":
+
+                return Flags.FROSTED_ICE_FORM;
+
+            case "MUSHROOMS":
+
+                return Flags.MUSHROOMS;
+
+            case "LEAF_DECAY":
+
+                return Flags.LEAF_DECAY;
+
+            case "GRASS_SPREAD":
+
+                return Flags.GRASS_SPREAD;
+
+            case "MYCELIUM_SPREAD":
+
+                return Flags.MYCELIUM_SPREAD;
+
+            case "VINE_GROWTH":
+
+                return Flags.VINE_GROWTH;
+
+            case "ROCK_GROWTH":
+
+                return Flags.ROCK_GROWTH;
+
+            case "CROP_GROWTH":
+
+                return Flags.CROP_GROWTH;
+
+            case "SOIL_DRY":
+
+                return Flags.SOIL_DRY;
+
+            case "CORAL_FADE":
+
+                return Flags.CORAL_FADE;
+
+            case "WATER_FLOW":
+
+                return Flags.WATER_FLOW;
+
+            case "LAVA_FLOW":
+
+                return Flags.LAVA_FLOW;
+
+            case "SEND_CHAT":
+
+                return Flags.SEND_CHAT;
+
+            case "RECEIVE_CHAT":
+
+                return Flags.RECEIVE_CHAT;
+
+            case "INVINCIBILITY":
+
+                return Flags.INVINCIBILITY;
+
+            case "FALL_DAMAGE":
+
+                return Flags.FALL_DAMAGE;
+
+            case "HEALTH_REGEN":
+
+                return Flags.HEALTH_REGEN;
+
+            case "HUNGER_DRAIN":
+
+                return Flags.HUNGER_DRAIN;
+
+            case "ENTRY":
+
+                return Flags.ENTRY;
+
+            case "EXIT":
+
+                return Flags.EXIT;
+
+            case "EXIT_VIA_TELEPORT":
+
+                return Flags.EXIT_VIA_TELEPORT;
+
+            case "ENDERPEARL":
+
+                return Flags.ENDERPEARL;
+
+            case "CHORUS_TELEPORT":
+
+                return Flags.CHORUS_TELEPORT;
+
+            default:
+                return null;
+
+
+        }
 
     }
 
