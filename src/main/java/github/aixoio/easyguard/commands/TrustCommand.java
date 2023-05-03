@@ -40,7 +40,6 @@ public class TrustCommand implements CommandExecutor {
 
         if (args.length == 0) {
 
-            sender.sendMessage("Usage: /<command> add [location-name] [target]");
             return false;
 
         }
