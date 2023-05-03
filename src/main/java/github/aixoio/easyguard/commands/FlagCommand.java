@@ -128,7 +128,71 @@ public class FlagCommand implements CommandExecutor {
 
         } else if (mode.equalsIgnoreCase("remove")) {
 
-            // TODO: Add the remove flag sub-command
+            if (args.length < 3) return false;
+
+            String inFlag = args[1].toUpperCase();
+            String location = args[2];
+
+            ArrayList<String> flagsNames = new ArrayList<String>(Arrays.asList(this.getFlagsNames()));
+
+            if (!flagsNames.contains(inFlag)) {
+
+                sender.sendMessage(ChatColor.RED + "Flag not found!");
+
+            } else {
+
+                try {
+
+                    Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+
+                    if (targetLocaiton == null) {
+
+                        sender.sendMessage(ChatColor.RED + "Not found!");
+                        return true;
+
+                    }
+
+                    StateFlag flagToAdd = this.stringToFlag(inFlag);
+
+                    if (flagToAdd == null) {
+
+                        sender.sendMessage(ChatColor.RED + "Not found!");
+                        return true;
+
+                    }
+
+                    BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
+
+                    ApplicableRegionSet applicableRegionSet = WorldGuard
+                            .getInstance()
+                            .getPlatform()
+                            .getRegionContainer()
+                            .get(localPlayer.getWorld())
+                            .getApplicableRegions(
+                                    targetLocaitonAsVector
+                            );
+
+                    for (ProtectedRegion region : applicableRegionSet) {
+
+                        DefaultDomain owners = region.getOwners();
+
+                        if (!owners.contains(localPlayer)) continue;
+
+                        region.setFlag(flagToAdd, StateFlag.State.DENY);
+
+                        sender.sendMessage(ChatColor.GREEN + "Removed flag from " + region.getId());
+
+                    }
+
+                } catch (Exception e) {
+
+                    sender.sendMessage(ChatColor.RED + "Not found!");
+
+                    EasyGuard.getPlugin().getLogger().info(e.toString());
+
+                }
+
+            }
 
         }
 
