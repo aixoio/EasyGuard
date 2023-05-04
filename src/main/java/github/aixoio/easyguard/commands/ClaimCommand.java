@@ -7,6 +7,7 @@ import com.sk89q.worldguard.domains.DefaultDomain;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import github.aixoio.easyguard.EasyGuard;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -120,6 +121,7 @@ public class ClaimCommand implements CommandExecutor {
         } catch (Exception e) {
 
             sender.sendMessage(ChatColor.DARK_RED + "Unknown error!");
+            Bukkit.getServer().getLogger().info(e.getMessage());
 
         }
 
