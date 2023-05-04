@@ -1,6 +1,7 @@
 package github.aixoio.easyguard.commands;
 
 import github.aixoio.easyguard.EasyGuard;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -31,21 +32,30 @@ public class ClaimsCommand implements CommandExecutor {
 
         String playername = player.getDisplayName();
 
-        Set<String> dataKeys = EasyGuard.getPlugin().getConfig().getConfigurationSection("data." + playername).getKeys(false);
+        try {
+
+            Set<String> dataKeys = EasyGuard.getPlugin().getConfig().getConfigurationSection("data." + playername).getKeys(false);
 
 
-        if (dataKeys.size() == 0) {
+            if (dataKeys.size() == 0) {
+
+                sender.sendMessage(ChatColor.RED + "You do not have any claims!");
+                return true;
+
+            }
+
+            sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "You own the following claims");
+
+            for (String key : dataKeys) {
+
+                sender.sendMessage(ChatColor.GOLD + key);
+
+            }
+
+        } catch (Exception e) {
 
             sender.sendMessage(ChatColor.RED + "You do not have any claims!");
-            return true;
-
-        }
-
-        sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "You own the following claims");
-
-        for (String key : dataKeys) {
-
-            sender.sendMessage(ChatColor.GOLD + key);
+            Bukkit.getServer().getLogger().info(e.getMessage());
 
         }
 
