@@ -92,7 +92,7 @@ public class ClaimCommand implements CommandExecutor {
 
                 String regionName = args[0];
 
-                String name = String.format("%s_%s_%d", player.getDisplayName(), regionName, random.nextInt());
+                String name = String.format("%s_%s_%d", player.getDisplayName().toLowerCase(), regionName, random.nextInt());
 
                 ProtectedCuboidRegion protectedCuboidRegion = new ProtectedCuboidRegion(name, blockVector1, blockVector2);
 
