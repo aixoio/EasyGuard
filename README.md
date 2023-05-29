@@ -43,3 +43,8 @@
     - **Remove**
       - /flag add \<flag\> \<claim-name\>
       - /flags add \<flag\> \<claim-name\>
+- claim-bounds
+  - **Description:** Shows the bounds of the current claim/s
+  - **Permission:** easyguard.bounds
+  - **Usage:**
+    - /claim-bounds
