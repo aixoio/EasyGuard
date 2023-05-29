@@ -75,6 +75,8 @@ public class ClaimBoundsCommand implements CommandExecutor {
 
             // NOTE: Draw points - END DO NOT CHANGE
 
+            sender.sendMessage(String.format("%sYou are currently in %s%s%s", ChatColor.BLUE, ChatColor.GOLD, ChatColor.BOLD, region.getId()));
+
         }
 
         if (applicableRegionSet.size() == 0) {
