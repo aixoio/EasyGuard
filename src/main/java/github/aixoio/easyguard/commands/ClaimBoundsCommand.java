@@ -59,21 +59,89 @@ public class ClaimBoundsCommand implements CommandExecutor {
 
             // NOTE: Draw points - START DO NOT CHANGE
 
-            world.spawnParticle(Particle.REDSTONE, locat1, 200, dust);
+            world.spawnParticle(Particle.REDSTONE, locat1, 60, dust);
 
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat2.getZ()), 200, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat2.getZ()), 200, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat1.getZ()), 200, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat1.getZ()), 200, dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat2.getZ()), 30, dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat2.getZ()), 30, dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat1.getZ()), 30, dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat1.getZ()), 30, dust);
 
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat2.getZ()), 200, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat2.getZ()), 200, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat1.getZ()), 200, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat1.getZ()), 200, dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat2.getZ()), 30, dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat2.getZ()), 30, dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat1.getZ()), 30, dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat1.getZ()), 30, dust);
 
-            world.spawnParticle(Particle.REDSTONE, locat2, 200, dust);
+            world.spawnParticle(Particle.REDSTONE, locat2, 60, dust);
 
             // NOTE: Draw points - END DO NOT CHANGE
+
+            dust = new Particle.DustOptions(Color.GRAY, 2.5f);
+
+            final double BASE_SEED = 0.5;
+            final int COUNT = 15;
+            final double RANGE = 0.1;
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat1.getX(), locat1.getY(), locat1.getZ()),
+                    new Location(world, locat1.getX(), locat2.getY(), locat1.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat1.getX(), locat1.getY(), locat1.getZ()),
+                    new Location(world, locat2.getX(), locat1.getY(), locat1.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat1.getX(), locat1.getY(), locat1.getZ()),
+                    new Location(world, locat1.getX(), locat1.getY(), locat2.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat1.getX(), locat2.getY(), locat1.getZ()),
+                    new Location(world, locat2.getX(), locat2.getY(), locat1.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat1.getX(), locat2.getY(), locat1.getZ()),
+                    new Location(world, locat1.getX(), locat2.getY(), locat2.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat2.getX(), locat1.getY(), locat2.getZ()),
+                    new Location(world, locat2.getX(), locat2.getY(), locat2.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat2.getX(), locat1.getY(), locat1.getZ()),
+                    new Location(world, locat2.getX(), locat2.getY(), locat1.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat1.getX(), locat1.getY(), locat2.getZ()),
+                    new Location(world, locat1.getX(), locat2.getY(), locat2.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat1.getX(), locat2.getY(), locat2.getZ()),
+                    new Location(world, locat2.getX(), locat2.getY(), locat2.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat2.getX(), locat2.getY(), locat1.getZ()),
+                    new Location(world, locat2.getX(), locat2.getY(), locat2.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat1.getX(), locat1.getY(), locat2.getZ()),
+                    new Location(world, locat2.getX(), locat1.getY(), locat2.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
+            this.drawLineBetweenParticles(
+                    new Location(world, locat2.getX(), locat1.getY(), locat1.getZ()),
+                    new Location(world, locat2.getX(), locat1.getY(), locat2.getZ()),
+                    BASE_SEED, world, dust, COUNT, RANGE);
+
 
             sender.sendMessage(String.format("%sYou are currently in %s%s%s", ChatColor.BLUE, ChatColor.GOLD, ChatColor.BOLD, region.getId()));
 
@@ -86,5 +154,37 @@ public class ClaimBoundsCommand implements CommandExecutor {
         }
 
         return true;
+
     }
+
+    private void drawLineBetweenParticles(Location current, Location target, final double BASE_SPEED, World world, Particle.DustOptions dust, int count, double range) {
+
+        double diffX = (current.getX() - target.getX());
+        double diffY = (current.getY() - target.getY());
+        double diffZ = (current.getZ() - target.getZ());
+
+        double distance = current.distance(target);
+
+        final double SPEED = -BASE_SPEED;
+
+        double xv = ((SPEED / distance) * diffX);
+        double yv = ((SPEED / distance) * diffY);
+        double zv = ((SPEED / distance) * diffZ);
+
+        double x = current.getX();
+        double y = current.getY();
+        double z = current.getZ();
+
+        while (Math.abs(x - target.getX()) > range || Math.abs(y - target.getY()) > range || Math.abs(z - target.getZ()) > range) {
+
+            world.spawnParticle(Particle.REDSTONE, new Location(world, x, y, z), count, dust);
+
+            x += xv;
+            y += yv;
+            z += zv;
+
+        }
+
+    }
+
 }
