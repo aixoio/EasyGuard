@@ -35,3 +35,7 @@ commands:
     permission: easyguard.flag
     aliases:
       - flags
+  claim-bounds:
+    description: Shows the bounds of the current claim
+    usage: /<command>
+    permission: easyguard.bounds
