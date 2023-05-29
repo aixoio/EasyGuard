@@ -82,7 +82,12 @@ public class TrustCommand implements CommandExecutor {
 
                     DefaultDomain owners = region.getOwners();
 
-                    if (!owners.contains(localPlayer)) continue;
+                    if (!owners.contains(localPlayer)) {
+
+                        sender.sendMessage(ChatColor.RED + "You cannot do that!");
+                        continue;
+
+                    }
 
                     LocalPlayer targetPlayer = EasyGuard.getWorldGuard().wrapPlayer(Bukkit.getPlayer(targetPlayerUsername));
 
@@ -135,9 +140,21 @@ public class TrustCommand implements CommandExecutor {
 
                     DefaultDomain owners = region.getOwners();
 
-                    if (!owners.contains(localPlayer)) continue;
+                    if (!owners.contains(localPlayer)) {
+
+                        sender.sendMessage(ChatColor.RED + "You cannot do that!");
+                        continue;
+
+                    }
 
                     LocalPlayer targetPlayer = EasyGuard.getWorldGuard().wrapPlayer(Bukkit.getPlayer(targetPlayerUsername));
+
+                    if (targetPlayerUsername.equalsIgnoreCase(player.getDisplayName())) {
+
+                        sender.sendMessage(ChatColor.RED + "You cannot do that!");
+                        continue;
+
+                    }
 
                     owners.removePlayer(targetPlayer);
 

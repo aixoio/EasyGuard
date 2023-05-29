@@ -68,7 +68,12 @@ public class DeleteClaimCommand implements CommandExecutor {
 
                 DefaultDomain owners = region.getOwners();
 
-                if (!owners.contains(localPlayer)) continue;
+                if (!owners.contains(localPlayer)) {
+
+                    sender.sendMessage(ChatColor.RED + "You cannot do that!");
+                    continue;
+
+                }
 
                 WorldGuard
                         .getInstance()
