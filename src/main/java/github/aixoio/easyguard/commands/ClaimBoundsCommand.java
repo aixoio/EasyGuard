@@ -59,26 +59,26 @@ public class ClaimBoundsCommand implements CommandExecutor {
 
             // NOTE: Draw points - START DO NOT CHANGE
 
-            world.spawnParticle(Particle.REDSTONE, locat1, 60, dust);
+            world.spawnParticle(Particle.REDSTONE, locat1, EasyGuard.getPlugin().getConfig().getInt("MASTER_POINT_PARTICLE_COUNT"), dust);
 
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat2.getZ()), 30, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat2.getZ()), 30, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat1.getZ()), 30, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat1.getZ()), 30, dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat2.getZ()), EasyGuard.getPlugin().getConfig().getInt("POINT_PARTICLE_COUNT"), dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat2.getZ()), EasyGuard.getPlugin().getConfig().getInt("POINT_PARTICLE_COUNT"), dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat1.getZ()), EasyGuard.getPlugin().getConfig().getInt("POINT_PARTICLE_COUNT"), dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat1.getZ()), EasyGuard.getPlugin().getConfig().getInt("POINT_PARTICLE_COUNT"), dust);
 
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat2.getZ()), 30, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat2.getZ()), 30, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat1.getZ()), 30, dust);
-            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat1.getZ()), 30, dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat2.getZ()), EasyGuard.getPlugin().getConfig().getInt("POINT_PARTICLE_COUNT"), dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat2.getZ()), EasyGuard.getPlugin().getConfig().getInt("POINT_PARTICLE_COUNT"), dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat1.getZ()), EasyGuard.getPlugin().getConfig().getInt("POINT_PARTICLE_COUNT"), dust);
+            world.spawnParticle(Particle.REDSTONE, new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat1.getZ()), EasyGuard.getPlugin().getConfig().getInt("POINT_PARTICLE_COUNT"), dust);
 
-            world.spawnParticle(Particle.REDSTONE, locat2, 60, dust);
+            world.spawnParticle(Particle.REDSTONE, locat2, EasyGuard.getPlugin().getConfig().getInt("MASTER_POINT_PARTICLE_COUNT"), dust);
 
             // NOTE: Draw points - END DO NOT CHANGE
 
             dust = new Particle.DustOptions(Color.GRAY, 2.5f);
 
             final double BASE_SEED = 0.5;
-            final int COUNT = 15;
+            final int COUNT = EasyGuard.getPlugin().getConfig().getInt("POINT_LINE_PARTICLE_COUNT");
             final double RANGE = 0.1;
 
             this.drawLineBetweenParticles(
