@@ -94,6 +94,62 @@ public class ClaimCommand implements CommandExecutor {
 
                 String name = String.format("%s_%s_%d", player.getDisplayName().toLowerCase(), regionName, random.nextInt());
 
+                boolean bypassSize = false;
+
+                if (args.length == 8) {
+
+                    String bypassstring = args[7];
+
+                    if (bypassstring.equalsIgnoreCase("bypass") && player.hasPermission("easyguard.size-bypass")
+                            && EasyGuard.getPlugin().getConfig().getBoolean("ALLOW_MAX_SIZE_BYPASS")) {
+
+                        bypassSize = true;
+                        sender.sendMessage(ChatColor.GOLD + "Bypassing size limit...");
+
+                    } else if (!bypassstring.equalsIgnoreCase("bypass")) {
+
+                        sender.sendMessage(ChatColor.RED + "Unknown options!");
+                        return true;
+
+                    } else {
+
+                        sender.sendMessage(ChatColor.RED + "You cannot bypass this limit!");
+                        return true;
+
+                    }
+
+                }
+
+                if (EasyGuard.getPlugin().getConfig().getInt("MAX_SIZE") != 0 && !bypassSize) {
+
+                    final int MAX_SIZE = (int) Math.pow(Math.abs(EasyGuard.getPlugin().getConfig().getInt("MAX_SIZE")), 3.0);
+
+                    double length = Math.abs(blockVector2.getX() - blockVector1.getX());
+                    double width = Math.abs(blockVector2.getY() - blockVector1.getY());
+                    double height = Math.abs(blockVector2.getZ() - blockVector1.getZ());
+
+                    double volume = length * width * height;
+
+                    if (MAX_SIZE < volume) {
+
+                        if (EasyGuard.getPlugin().getConfig().getBoolean("ALLOW_MAX_SIZE_BYPASS") && player.hasPermission("easyguard.size-bypass")) {
+
+                            sender.sendMessage(ChatColor.RED + "You cannot make a claim over " + MAX_SIZE + " blocks and your claim's size is " + volume + " blocks!");
+                            sender.sendMessage(ChatColor.GREEN + "Run this command again but with bypass at the end:");
+                            sender.sendMessage(ChatColor.RESET + " - " + ChatColor.GOLD + command.getUsage().replaceFirst("<command>", command.getName()) + " bypass");
+
+                        } else {
+
+                            sender.sendMessage(ChatColor.RED + "You cannot make a claim over " + MAX_SIZE + " blocks and your claim's size is " + volume + " blocks!");
+
+                        }
+
+                        return true;
+
+                    }
+
+                }
+
                 ProtectedCuboidRegion protectedCuboidRegion = new ProtectedCuboidRegion(name, blockVector1, blockVector2);
 
                 DefaultDomain defaultDomain = new DefaultDomain();

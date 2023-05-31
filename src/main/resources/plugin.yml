@@ -61,3 +61,6 @@ permissions:
   easyguard.claim-bounds:
     description: Gives access to /claim-bounds
     default: true
+  easyguard.size-bypass:
+    description: Lets plays bypass the claim size limit if one is set
+    default: op

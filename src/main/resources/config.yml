@@ -6,6 +6,13 @@ POINT_LINE_PARTICLE_COUNT: 15
 POINT_SIZE: 5.0
 LINE_SIZE: 2.5
 
+# CLAIM COMMAND SETTINGS
+
+ALLOW_MAX_SIZE_BYPASS: true
+
+# This will be cubed, set to 0 to disable this
+MAX_SIZE: 35
+
 # USER DATA - DO NOT CHANGE
 
 data:
