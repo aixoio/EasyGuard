@@ -55,7 +55,7 @@ public class ClaimBoundsCommand implements CommandExecutor {
 
             World world = player.getWorld();
 
-            Particle.DustOptions dust = new Particle.DustOptions(Color.YELLOW, 5f);
+            Particle.DustOptions dust = new Particle.DustOptions(Color.YELLOW, 2.5f);
 
             // NOTE: Draw points - START DO NOT CHANGE
 
@@ -75,7 +75,7 @@ public class ClaimBoundsCommand implements CommandExecutor {
 
             // NOTE: Draw points - END DO NOT CHANGE
 
-            dust = new Particle.DustOptions(Color.GRAY, 2.5f);
+            dust = new Particle.DustOptions(Color.GRAY, 1.25f);
 
             final double BASE_SEED = 0.5;
             final int COUNT = EasyGuard.getPlugin().getConfig().getInt("POINT_LINE_PARTICLE_COUNT");
