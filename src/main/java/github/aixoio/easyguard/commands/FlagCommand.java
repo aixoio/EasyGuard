@@ -193,6 +193,62 @@ public class FlagCommand implements CommandExecutor {
 
             }
 
+        } else if (mode.equalsIgnoreCase("current")) {
+
+            BlockVector3 location = BlockVector3.at(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ());
+
+            ApplicableRegionSet applicableRegionSet = WorldGuard
+                    .getInstance()
+                    .getPlatform()
+                    .getRegionContainer()
+                    .get(localPlayer.getWorld())
+                    .getApplicableRegions(
+                            location
+                    );
+
+            for (ProtectedRegion region : applicableRegionSet) {
+
+                sender.sendMessage(ChatColor.GREEN + "Green" + ChatColor.GREEN + " is for allow");
+                sender.sendMessage(ChatColor.RED + "Red" + ChatColor.GREEN + " is for deny");
+                sender.sendMessage(ChatColor.GREEN + "Unset flags are not displayed");
+                sender.sendMessage(ChatColor.GREEN + region.getId() + " has the following flags:");
+
+                int count = 0;
+
+                for (String flagName : this.getFlagsNames()) {
+
+                    StateFlag stateFlag = this.stringToFlag(flagName);
+
+                    if (region.getFlag(stateFlag) == StateFlag.State.ALLOW) {
+
+                        sender.sendMessage(String.format("%s- %s%s", ChatColor.RESET, ChatColor.GREEN, flagName));
+
+                        count++;
+
+                    } else if (region.getFlag(stateFlag) == StateFlag.State.DENY) {
+
+                        sender.sendMessage(String.format("%s- %s%s", ChatColor.RESET, ChatColor.RED, flagName));
+
+                        count++;
+
+                    }
+
+                }
+
+                if (count == 0) {
+
+                    sender.sendMessage(ChatColor.RED + "This claim has no flags!");
+
+                }
+
+            }
+
+            if (applicableRegionSet.size() == 0) {
+
+                sender.sendMessage(ChatColor.RED + "You are not inside a claim right now!");
+
+            }
+
         }
 
         return true;
