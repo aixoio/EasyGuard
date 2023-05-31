@@ -101,6 +101,7 @@ public class ClaimCommand implements CommandExecutor {
                 defaultDomain.addPlayer(localPlayer);
 
                 protectedCuboidRegion.setOwners(defaultDomain);
+                protectedCuboidRegion.setMembers(defaultDomain);
 
                 WorldGuard
                         .getInstance()
