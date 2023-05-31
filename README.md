@@ -21,7 +21,7 @@
   - **Permission:** easyguard.trust
   - **Usage:**
     - **Add**
-      - /trust add \<player\> \<claim-name\>
+      - /trust add \<player\> \<claim-name\> \<owner|member\>
     - **Remove**
       - /trust remove \<player\> \<claim-name\>
 - delete-claim

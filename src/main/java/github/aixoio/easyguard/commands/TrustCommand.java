@@ -47,7 +47,7 @@ public class TrustCommand implements CommandExecutor {
 
         String mode = args[0];
 
-        if (mode.toLowerCase().equals("add") && args.length < 3) return false;
+        if (mode.toLowerCase().equals("add") && args.length < 4) return false;
         if (mode.toLowerCase().equals("remove") && args.length < 3) return false;
 
 
@@ -55,6 +55,14 @@ public class TrustCommand implements CommandExecutor {
 
             String location = args[2];
             String targetPlayerUsername = args[1];
+            String level = args[3].toLowerCase();
+
+            if (!level.equalsIgnoreCase("owner") && !level.equalsIgnoreCase("member")) {
+
+                sender.sendMessage(ChatColor.RED + "Level can only be owner or member!");
+                return true;
+
+            }
 
             try {
 
@@ -91,9 +99,18 @@ public class TrustCommand implements CommandExecutor {
 
                     LocalPlayer targetPlayer = EasyGuard.getWorldGuard().wrapPlayer(Bukkit.getPlayer(targetPlayerUsername));
 
-                    owners.addPlayer(targetPlayer);
+                    if (level.equalsIgnoreCase("owner")) {
 
-                    region.setOwners(owners);
+                        owners.addPlayer(targetPlayer);
+                        region.setOwners(owners);
+
+                    } else {
+
+                        DefaultDomain members = region.getMembers();
+                        members.addPlayer(targetPlayer);
+                        region.setMembers(members);
+
+                    }
 
                     sender.sendMessage(ChatColor.GREEN + targetPlayerUsername + " was added to " + region.getId());
 
