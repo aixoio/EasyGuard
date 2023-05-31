@@ -39,3 +39,25 @@ commands:
     description: Shows the bounds of the current claim/s
     usage: /<command>
     permission: easyguard.bounds
+permissions:
+  easyguard.claim:
+    description: Gives access to /claim
+    default: true
+  easyguard.claims:
+    description: Gives access to /claims
+    default: true
+  easyguard.current-claim:
+    description: Gives access to /current-claim
+    default: true
+  easyguard.trust:
+    description: Gives access to /trust
+    default: true
+  easyguard.delete-claim:
+    description: Gives access to /delete-claim
+    default: true
+  easyguard.flag:
+    description: Gives access to /flag and /flags
+    default: true
+  easyguard.claim-bounds:
+    description: Gives access to /claim-bounds
+    default: true
