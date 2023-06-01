@@ -46,6 +46,9 @@
     - **Current**
       - /flag current
       - /flags current
+    - **Reset**
+      - /flag reset \<flag\> \<claim-name\>
+      - /flags reset \<flag\> \<claim-name\>
 - claim-bounds
   - **Description:** Shows the bounds of the current claim/s
   - **Permission:** easyguard.bounds
