@@ -75,6 +75,11 @@ CreeperGuardDisableDamage: true
 # When enabled it will play a pop sound when a creeper explodes
 CreeperGuardPlaySound: true
 
+# ENDERMAN GUARD
+
+# Default: true
+# Set this to false to disable this
+ENDERGUARD_ON: true
 
 # USER DATA - DO NOT CHANGE
 
