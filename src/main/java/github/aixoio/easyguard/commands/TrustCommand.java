@@ -156,6 +156,7 @@ public class TrustCommand implements CommandExecutor {
                 for (ProtectedRegion region : applicableRegionSet) {
 
                     DefaultDomain owners = region.getOwners();
+                    DefaultDomain members = region.getMembers();
 
                     if (!owners.contains(localPlayer)) {
 
@@ -174,8 +175,10 @@ public class TrustCommand implements CommandExecutor {
                     }
 
                     owners.removePlayer(targetPlayer);
+                    members.removePlayer(targetPlayer);
 
                     region.setOwners(owners);
+                    region.setMembers(members);
 
                     sender.sendMessage(ChatColor.GREEN + targetPlayerUsername + " was removed from " + region.getId());
 
