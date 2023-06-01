@@ -8,6 +8,7 @@ import github.aixoio.easyguard.events.creeperguard.CreeperGuardEntityExplodeEven
 import github.aixoio.easyguard.events.endermanguard.EndermanGuardBlockTakeEvent;
 import github.aixoio.easyguard.events.safelist.SafeListJoinEvent;
 import github.aixoio.easyguard.events.safelist.SafeListLeaveEvent;
+import github.aixoio.easyguard.events.tntguard.TNTGuardExplosionPrime;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -61,6 +62,8 @@ public final class EasyGuard extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new CreeperGuardDamageEvent(), this);
 
         this.getServer().getPluginManager().registerEvents(new EndermanGuardBlockTakeEvent(), this);
+
+        this.getServer().getPluginManager().registerEvents(new TNTGuardExplosionPrime(), this);
 
         this.getLogger().info("Started");
 

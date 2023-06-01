@@ -81,6 +81,20 @@ CreeperGuardPlaySound: true
 # Set this to false to disable this
 ENDERMANGUARD_ON: true
 
+# TNT GUARD
+
+# Default: true
+# Set this to false to disable this
+TNTGUARD_ON: true
+
+# Default: false
+# To show smoke particles when a creeper explodes
+TNTGuardShowParticles: false
+
+# Default: 25
+# The number of smoke particles to show
+TNTGuardParticleCount: 25
+
 
 # USER DATA - DO NOT CHANGE
 
