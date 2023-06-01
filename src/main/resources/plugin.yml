@@ -64,3 +64,6 @@ permissions:
   easyguard.size-bypass:
     description: Lets plays bypass the claim size limit if one is set
     default: op
+  easyguard.safelist-bypass:
+    description: Lets players bypass the Safe-list
+    default: op

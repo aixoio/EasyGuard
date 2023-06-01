@@ -54,3 +54,10 @@
   - **Permission:** easyguard.bounds
   - **Usage:**
     - /claim-bounds
+## Permissions
+- easyguard.safelist-bypass
+  - **Description:** Lets players bypass the Safe-list
+  - **Default:** OP
+- easyguard.size-bypass
+  - **Description:** Lets plays bypass the claim size limit if one is set
+  - **Default:** OP

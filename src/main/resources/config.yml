@@ -13,6 +13,42 @@ ALLOW_MAX_SIZE_BYPASS: true
 # This will be cubed, set to 0 to disable this
 MAX_SIZE: 35
 
+# SAFE-LIST
+
+# Set this to false to disable this
+SAFELIST_ON: true
+
+# Modes:
+# KICK: Kick the player
+# BAN: Ban the player
+# BAN_IP: Ban the player's ip
+# LOG_ONLY: Log the player
+SAFELIST_MODE: KICK
+
+# Message
+# Format with {xxx}
+# Replace xxx with one of the following:
+# black
+# gold
+# gray
+# blue
+# green
+# aqua
+# red
+# light_purple
+# yellow
+# white
+# bold
+# italic
+# reset
+# player
+# newline
+SAFELIST_MESSAGE: "{red}You are not {bold}allowed{reset}{red} on this server!{newline}{reset}{gold}If this is your first time seeing this ask the server admin to add you to the Easy Guard safe-list in the config!"
+
+ALLOWED_PLAYERS:
+  - "ENTER_USERNAMES_HERE"
+  - "LIKE_THIS"
+
 # USER DATA - DO NOT CHANGE
 
 data:
