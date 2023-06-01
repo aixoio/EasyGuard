@@ -11,7 +11,7 @@ public class EndermanGuardBlockTakeEvent implements Listener {
     @EventHandler
     public void onEndermanBlockTake(EntityChangeBlockEvent e) {
 
-        boolean active = EasyGuard.getPlugin().getConfig().getBoolean("ENDERGUARD_ON");
+        boolean active = EasyGuard.getPlugin().getConfig().getBoolean("ENDERMANGUARD_ON");
 
         if (!active) return;
 

@@ -79,7 +79,8 @@ CreeperGuardPlaySound: true
 
 # Default: true
 # Set this to false to disable this
-ENDERGUARD_ON: true
+ENDERMANGUARD_ON: true
+
 
 # USER DATA - DO NOT CHANGE
 
