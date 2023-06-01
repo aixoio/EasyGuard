@@ -49,6 +49,33 @@ ALLOWED_PLAYERS:
   - "ENTER_USERNAMES_HERE"
   - "LIKE_THIS"
 
+# CREEPER GUARD
+
+# Default: true
+# This will enable and/or disable the plugin
+CreeperGuardActive: true
+
+# Default: true
+# If this is set to true, when a creeper explodes it will not remove the entity
+CreeperGuardRemoveCreeperEntityOnExplode: true
+
+# Default: false
+# To show smoke particles when a creeper explodes
+CreeperGuardShowParticles: false
+
+# Default: 25
+# The number of smoke particles to show
+CreeperGuardParticleCount: 25
+
+# Default: true
+# Disables the damage when a creeper explodes
+CreeperGuardDisableDamage: true
+
+# Default: true
+# When enabled it will play a pop sound when a creeper explodes
+CreeperGuardPlaySound: true
+
+
 # USER DATA - DO NOT CHANGE
 
 data:

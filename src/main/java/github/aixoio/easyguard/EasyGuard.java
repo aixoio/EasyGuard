@@ -3,6 +3,8 @@ package github.aixoio.easyguard;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import github.aixoio.easyguard.commands.*;
+import github.aixoio.easyguard.events.creeperguard.CreeperGuardDamageEvent;
+import github.aixoio.easyguard.events.creeperguard.CreeperGuardEntityExplodeEvent;
 import github.aixoio.easyguard.events.safelist.SafeListJoinEvent;
 import github.aixoio.easyguard.events.safelist.SafeListLeaveEvent;
 import org.bukkit.Bukkit;
@@ -53,6 +55,9 @@ public final class EasyGuard extends JavaPlugin {
 
         this.getServer().getPluginManager().registerEvents(new SafeListJoinEvent(), this);
         this.getServer().getPluginManager().registerEvents(new SafeListLeaveEvent(), this);
+
+        this.getServer().getPluginManager().registerEvents(new CreeperGuardEntityExplodeEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new CreeperGuardDamageEvent(), this);
 
         this.getLogger().info("Started");
 
