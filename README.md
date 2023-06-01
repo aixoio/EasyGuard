@@ -38,17 +38,17 @@
       - /flag list
       - /flags list
     - **Add**
-      - /flag add \<flag\> \<claim-name\>
-      - /flags add \<flag\> \<claim-name\>
+      - /flag add \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
+      - /flags add \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
     - **Remove**
-      - /flag add \<flag\> \<claim-name\>
-      - /flags add \<flag\> \<claim-name\>
+      - /flag add \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
+      - /flags add \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
     - **Current**
       - /flag current
       - /flags current
     - **Reset**
-      - /flag reset \<flag\> \<claim-name\>
-      - /flags reset \<flag\> \<claim-name\>
+      - /flag reset \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
+      - /flags reset \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
 - claim-bounds
   - **Description:** Shows the bounds of the current claim/s
   - **Permission:** easyguard.bounds

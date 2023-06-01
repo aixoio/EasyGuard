@@ -6,6 +6,8 @@ import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.domains.DefaultDomain;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.flags.Flags;
+import com.sk89q.worldguard.protection.flags.RegionGroup;
+import com.sk89q.worldguard.protection.flags.RegionGroupFlag;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import github.aixoio.easyguard.EasyGuard;
@@ -59,10 +61,31 @@ public class FlagCommand implements CommandExecutor {
 
         } else if (mode.equalsIgnoreCase("add")) {
 
-            if (args.length < 3) return false;
+            if (args.length < 4) return false;
 
             String inFlag = args[1].toUpperCase();
             String location = args[2];
+            String flagFor = args[3].toLowerCase();
+
+            RegionGroup regionGroup = null;
+
+            if (!flagFor.equalsIgnoreCase("owner") && !flagFor.equalsIgnoreCase("member") &&
+                !flagFor.equalsIgnoreCase("everyone") && !flagFor.equalsIgnoreCase("non-owners")
+                        && !flagFor.equalsIgnoreCase("non-members") && !flagFor.equalsIgnoreCase("none")) {
+
+                sender.sendMessage(ChatColor.RED + "This flag can only be for owner, member, everyone, non-owners, non-members or none!");
+                return true;
+
+            }
+
+            if (flagFor.equalsIgnoreCase("owner")) regionGroup = RegionGroup.OWNERS;
+            if (flagFor.equalsIgnoreCase("member")) regionGroup = RegionGroup.MEMBERS;
+
+            if (flagFor.equalsIgnoreCase("non-owners")) regionGroup = RegionGroup.MEMBERS;
+            if (flagFor.equalsIgnoreCase("non-members")) regionGroup = RegionGroup.NON_MEMBERS;
+
+            if (flagFor.equalsIgnoreCase("everyone")) regionGroup = RegionGroup.NON_MEMBERS;
+            if (flagFor.equalsIgnoreCase("none")) regionGroup = RegionGroup.NONE;
 
             ArrayList<String> flagsNames = new ArrayList<String>(Arrays.asList(this.getFlagsNames()));
 
@@ -110,6 +133,7 @@ public class FlagCommand implements CommandExecutor {
                         if (!owners.contains(localPlayer)) continue;
 
                         region.setFlag(flagToAdd, StateFlag.State.ALLOW);
+                        region.setFlag(flagToAdd.getRegionGroupFlag(), regionGroup);
 
                         sender.sendMessage(ChatColor.GREEN + "Add flag to " + region.getId());
 
@@ -127,10 +151,32 @@ public class FlagCommand implements CommandExecutor {
 
         } else if (mode.equalsIgnoreCase("remove")) {
 
-            if (args.length < 3) return false;
+            if (args.length < 4) return false;
 
             String inFlag = args[1].toUpperCase();
             String location = args[2];
+
+            String flagFor = args[3].toLowerCase();
+
+            RegionGroup regionGroup = null;
+
+            if (!flagFor.equalsIgnoreCase("owner") && !flagFor.equalsIgnoreCase("member") &&
+                    !flagFor.equalsIgnoreCase("everyone") && !flagFor.equalsIgnoreCase("non-owners")
+                    && !flagFor.equalsIgnoreCase("non-members") && !flagFor.equalsIgnoreCase("none")) {
+
+                sender.sendMessage(ChatColor.RED + "This flag can only be for owner, member, everyone, non-owners, non-members or none!");
+                return true;
+
+            }
+
+            if (flagFor.equalsIgnoreCase("owner")) regionGroup = RegionGroup.OWNERS;
+            if (flagFor.equalsIgnoreCase("member")) regionGroup = RegionGroup.MEMBERS;
+
+            if (flagFor.equalsIgnoreCase("non-owners")) regionGroup = RegionGroup.MEMBERS;
+            if (flagFor.equalsIgnoreCase("non-members")) regionGroup = RegionGroup.NON_MEMBERS;
+
+            if (flagFor.equalsIgnoreCase("everyone")) regionGroup = RegionGroup.NON_MEMBERS;
+            if (flagFor.equalsIgnoreCase("none")) regionGroup = RegionGroup.NONE;
 
             ArrayList<String> flagsNames = new ArrayList<String>(Arrays.asList(this.getFlagsNames()));
 
@@ -178,6 +224,7 @@ public class FlagCommand implements CommandExecutor {
                         if (!owners.contains(localPlayer)) continue;
 
                         region.setFlag(flagToAdd, StateFlag.State.DENY);
+                        region.setFlag(flagToAdd.getRegionGroupFlag(), regionGroup);
 
                         sender.sendMessage(ChatColor.GREEN + "Removed flag from " + region.getId());
 
@@ -221,13 +268,15 @@ public class FlagCommand implements CommandExecutor {
 
                     if (region.getFlag(stateFlag) == StateFlag.State.ALLOW) {
 
-                        sender.sendMessage(String.format("%s- %s%s", ChatColor.RESET, ChatColor.GREEN, flagName));
+                        sender.sendMessage(String.format("%s- %s%s%s: %s", ChatColor.RESET, ChatColor.GREEN, flagName, ChatColor.GRAY,
+                                stateFlag.getRegionGroupFlag().getDefault().toString().replace('_', '-')));
 
                         count++;
 
                     } else if (region.getFlag(stateFlag) == StateFlag.State.DENY) {
 
-                        sender.sendMessage(String.format("%s- %s%s", ChatColor.RESET, ChatColor.RED, flagName));
+                        sender.sendMessage(String.format("%s- %s%s%s: %s", ChatColor.RESET, ChatColor.RED, flagName, ChatColor.GRAY,
+                                stateFlag.getRegionGroupFlag().getDefault().toString().replace('_', '-')));
 
                         count++;
 
@@ -251,10 +300,31 @@ public class FlagCommand implements CommandExecutor {
 
         } else if (mode.equalsIgnoreCase("reset")) {
 
-            if (args.length < 3) return false;
+            if (args.length < 4) return false;
 
             String inFlag = args[1].toUpperCase();
             String location = args[2];
+            String flagFor = args[3].toLowerCase();
+
+            RegionGroup regionGroup = null;
+
+            if (!flagFor.equalsIgnoreCase("owner") && !flagFor.equalsIgnoreCase("member") &&
+                    !flagFor.equalsIgnoreCase("everyone") && !flagFor.equalsIgnoreCase("non-owners")
+                    && !flagFor.equalsIgnoreCase("non-members") && !flagFor.equalsIgnoreCase("none")) {
+
+                sender.sendMessage(ChatColor.RED + "This flag can only be for owner, member, everyone, non-owners, non-members or none!");
+                return true;
+
+            }
+
+            if (flagFor.equalsIgnoreCase("owner")) regionGroup = RegionGroup.OWNERS;
+            if (flagFor.equalsIgnoreCase("member")) regionGroup = RegionGroup.MEMBERS;
+
+            if (flagFor.equalsIgnoreCase("non-owners")) regionGroup = RegionGroup.MEMBERS;
+            if (flagFor.equalsIgnoreCase("non-members")) regionGroup = RegionGroup.NON_MEMBERS;
+
+            if (flagFor.equalsIgnoreCase("everyone")) regionGroup = RegionGroup.NON_MEMBERS;
+            if (flagFor.equalsIgnoreCase("none")) regionGroup = RegionGroup.NONE;
 
             ArrayList<String> flagsNames = new ArrayList<String>(Arrays.asList(this.getFlagsNames()));
 
@@ -302,6 +372,7 @@ public class FlagCommand implements CommandExecutor {
                         if (!owners.contains(localPlayer)) continue;
 
                         region.setFlag(flagToAdd, null);
+                        region.setFlag(flagToAdd.getRegionGroupFlag(), regionGroup);
 
                         sender.sendMessage(ChatColor.GREEN + "Reset flag from " + region.getId());
 
