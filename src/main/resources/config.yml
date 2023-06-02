@@ -95,6 +95,11 @@ TNTGuardShowParticles: false
 # The number of smoke particles to show
 TNTGuardParticleCount: 25
 
+# REKILL GUARD
+
+# Default: true
+# Set this to false to disable this
+KILLREGUARD_Active: true
 
 # USER DATA - DO NOT CHANGE
 

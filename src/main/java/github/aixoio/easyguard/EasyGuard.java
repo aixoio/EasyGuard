@@ -6,6 +6,7 @@ import github.aixoio.easyguard.commands.*;
 import github.aixoio.easyguard.events.creeperguard.CreeperGuardDamageEvent;
 import github.aixoio.easyguard.events.creeperguard.CreeperGuardEntityExplodeEvent;
 import github.aixoio.easyguard.events.endermanguard.EndermanGuardBlockTakeEvent;
+import github.aixoio.easyguard.events.rekillguard.ReKillGuardDamageEvent;
 import github.aixoio.easyguard.events.safelist.SafeListJoinEvent;
 import github.aixoio.easyguard.events.safelist.SafeListLeaveEvent;
 import github.aixoio.easyguard.events.tntguard.TNTGuardExplosionPrime;
@@ -64,6 +65,8 @@ public final class EasyGuard extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new EndermanGuardBlockTakeEvent(), this);
 
         this.getServer().getPluginManager().registerEvents(new TNTGuardExplosionPrime(), this);
+
+        this.getServer().getPluginManager().registerEvents(new ReKillGuardDamageEvent(), this);
 
         this.getLogger().info("Started");
 
