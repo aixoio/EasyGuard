@@ -15,8 +15,8 @@ MAX_SIZE: 35
 
 # SAFE-LIST
 
-# Set this to false to disable this
-SAFELIST_ON: true
+# Set this to true to enable this
+SAFELIST_ON: false
 
 # Modes:
 # KICK: Kick the player
