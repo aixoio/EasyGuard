@@ -10,10 +10,15 @@ import github.aixoio.easyguard.EasyGuard;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Set;
+import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class TrustCommand implements CommandExecutor {
 
@@ -49,6 +54,8 @@ public class TrustCommand implements CommandExecutor {
 
         if (mode.toLowerCase().equals("add") && args.length < 4) return false;
         if (mode.toLowerCase().equals("remove") && args.length < 3) return false;
+        if (mode.toLowerCase().equals("list") && args.length < 2) return false;
+
 
 
         if (mode.toLowerCase().equals("add")) {
@@ -194,7 +201,103 @@ public class TrustCommand implements CommandExecutor {
 
         }
 
+        if (mode.toLowerCase().equals("list")) {
+
+            String location = args[1];
+
+            try {
+
+                Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+
+                if (targetLocaiton == null) {
+
+                    sender.sendMessage(ChatColor.RED + "Not found!");
+                    return true;
+
+                }
+
+                BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
+
+                ApplicableRegionSet applicableRegionSet = WorldGuard
+                        .getInstance()
+                        .getPlatform()
+                        .getRegionContainer()
+                        .get(localPlayer.getWorld())
+                        .getApplicableRegions(
+                                targetLocaitonAsVector
+                        );
+
+                for (ProtectedRegion region : applicableRegionSet) {
+
+                    DefaultDomain owners = region.getOwners();
+                    DefaultDomain members = region.getMembers();
+
+                    String ownersString = this.toUserFriendlyStringConvertUUID(owners.toUserFriendlyString());
+                    String membersString = this.toUserFriendlyStringConvertUUID(members.toUserFriendlyString());
+
+                    if (!owners.contains(localPlayer)) {
+
+                        sender.sendMessage(ChatColor.RED + "You cannot do that!");
+                        continue;
+
+                    }
+
+                    sender.sendMessage(String.format("%s%s%s has the following players trusted:", ChatColor.GOLD, region.getId(), ChatColor.GREEN));
+                    sender.sendMessage(String.format("%sOwners: %s%s", ChatColor.BLUE, ChatColor.GOLD, ownersString));
+                    sender.sendMessage(String.format("%sMembers: %s%s", ChatColor.BLUE, ChatColor.GOLD, membersString));
+
+                }
+
+            } catch (Exception e) {
+
+                sender.sendMessage(ChatColor.RED + "Not found!");
+
+                EasyGuard.getPlugin().getLogger().info(e.toString());
+
+            }
+
+        }
+
         return true;
+    }
+
+    private String toUserFriendlyStringConvertUUID(String ufs) {
+
+        String[] parts = ufs.split(",");
+        String out = "[";
+
+        for (String item : parts) {
+
+            if (Pattern.compile("^uuid:", Pattern.CASE_INSENSITIVE).matcher(item).find() || Pattern.compile("^.uuid:", Pattern.CASE_INSENSITIVE).matcher(item).find()) {
+
+                String[] currentParts = item.split(":");
+
+                if (currentParts.length < 2) return null;
+
+                OfflinePlayer player = Bukkit.getOfflinePlayer(UUID.fromString(currentParts[1]));
+
+                out += player.getName() + ",";
+
+            } else {
+
+                out += item + ",";
+
+            }
+
+        }
+
+        if (out.endsWith(",")) {
+
+            char[] outchars = out.toCharArray();
+
+            outchars[out.lastIndexOf(",")] = ']';
+
+            out = new String(outchars);
+
+        }
+
+        return out;
+
     }
 
 }
