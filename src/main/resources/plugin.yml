@@ -39,6 +39,10 @@ commands:
     description: Shows the bounds of the current claim/s
     usage: /<command>
     permission: easyguard.bounds
+  get-ip:
+    description: Shows the ip of a player
+    usage: /<command> [username]
+    permission: easyguard.get-ip
 permissions:
   easyguard.claim:
     description: Gives access to /claim
@@ -66,4 +70,7 @@ permissions:
     default: op
   easyguard.safelist-bypass:
     description: Lets players bypass the Safe-list
+    default: op
+  easyguard.get-ip:
+    description: Lets players use /get-ip
     default: op

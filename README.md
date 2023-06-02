@@ -54,10 +54,18 @@
   - **Permission:** easyguard.bounds
   - **Usage:**
     - /claim-bounds
+- get-ip
+  - **Description:** Shows the ip of a player
+  - **Permission:** easyguard.get-ip
+  - **Usage:**
+    - /get-ip
 ## Permissions
 - easyguard.safelist-bypass
   - **Description:** Lets players bypass the Safe-list
   - **Default:** OP
 - easyguard.size-bypass
   - **Description:** Lets plays bypass the claim size limit if one is set
+  - **Default:** OP
+- easyguard.get-ip
+  - **Description:** Lets players use /get-ip
   - **Default:** OP
