@@ -74,3 +74,6 @@ permissions:
   easyguard.get-ip:
     description: Lets players use /get-ip
     default: op
+  easyguard.bounds:
+    description: Lets players use /claim-bounds
+    default: op
