@@ -101,6 +101,12 @@ TNTGuardParticleCount: 25
 # Set this to false to disable this
 KILLREGUARD_Active: true
 
+# FLOW GUARD
+# WARNING THIS CAN CAUSE LOTS OF LAG!!!
+
+# Default: true
+FLOWGUARD_ACTIVE: true
+
 # USER DATA - DO NOT CHANGE
 
 data:
