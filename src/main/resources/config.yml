@@ -88,7 +88,7 @@ ENDERMANGUARD_ON: true
 TNTGUARD_ON: true
 
 # Default: false
-# To show smoke particles when a creeper explodes
+# To show smoke particles when a something explodes
 TNTGuardShowParticles: false
 
 # Default: 25
