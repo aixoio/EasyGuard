@@ -81,6 +81,8 @@ public final class EasyGuard extends JavaPlugin {
 
         this.getLogger().info("Stopping...");
 
+        this.saveConfig();
+
         this.getLogger().info("Stopped");
 
     }
