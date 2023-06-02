@@ -46,7 +46,7 @@ public final class EasyGuard extends JavaPlugin {
 
         }
 
-        this.getConfig().options().copyDefaults();
+        this.getConfig().options().copyDefaults(true);
         this.saveDefaultConfig();
 
         this.getCommand("claim").setExecutor(new ClaimCommand());
