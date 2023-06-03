@@ -43,6 +43,10 @@ commands:
     description: Shows the ip of a player
     usage: /<command> [username]
     permission: easyguard.get-ip
+  where-claim:
+    description: Shows the location of a claim
+    usage: /<command> [claim-name]
+    permission: easyguard.where-claim
 permissions:
   easyguard.claim:
     description: Gives access to /claim
@@ -77,3 +81,6 @@ permissions:
   easyguard.bounds:
     description: Lets players use /claim-bounds
     default: op
+  easyguard.where-claim:
+    description: Lets players use /where-claim
+    default: true

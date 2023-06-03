@@ -61,6 +61,11 @@
   - **Permission:** easyguard.get-ip
   - **Usage:**
     - /get-ip
+- where-claim
+  - **Description:** Shows the location of a claim
+  - **Permission:** easyguard.where-claim
+  - **Usage:**
+    - /where-claim \<claim-name\>
 ## Permissions
 - easyguard.safelist-bypass
   - **Description:** Lets players bypass the Safe-list
