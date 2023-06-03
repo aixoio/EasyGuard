@@ -112,6 +112,20 @@ KILLREGUARD_Active: true
 # Default: true
 FLOWGUARD_ACTIVE: true
 
+# ANTI-SPAM
+
+# Default: true
+ANTI_SPAM_ACTIVE: true
+
+ANTI_SPAM_WARNING_COUNT: 3
+
+# Modes:
+# KICK: Kick the player
+# BAN: Ban the player
+# BAN_IP: Ban the player's ip
+# LOG_ONLY: Log the player
+ANTI_SPAM_ACTION: KICK
+
 # USER DATA - DO NOT CHANGE
 
 data:

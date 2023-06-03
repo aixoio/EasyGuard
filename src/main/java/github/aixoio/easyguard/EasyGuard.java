@@ -3,6 +3,7 @@ package github.aixoio.easyguard;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import github.aixoio.easyguard.commands.*;
+import github.aixoio.easyguard.events.antispam.AntiSpamAsyncPlayerChatEvent;
 import github.aixoio.easyguard.events.creeperguard.CreeperGuardDamageEvent;
 import github.aixoio.easyguard.events.creeperguard.CreeperGuardEntityExplodeEvent;
 import github.aixoio.easyguard.events.endermanguard.EndermanGuardBlockTakeEvent;
@@ -17,10 +18,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public final class EasyGuard extends JavaPlugin {
 
 
     private static EasyGuard PLUGIN;
+    public static HashMap<UUID, String> lastMessageAntiSpam = new HashMap<UUID, String>();
+    public static HashMap<UUID, Integer> warningsAntiSpam = new HashMap<UUID, Integer>();
 
     @Override
     public void onEnable() {
@@ -71,6 +77,8 @@ public final class EasyGuard extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new ReKillGuardDamageEvent(), this);
 
         this.getServer().getPluginManager().registerEvents(new FlowGuardBlockFromToEvent(), this);
+
+        this.getServer().getPluginManager().registerEvents(new AntiSpamAsyncPlayerChatEvent(), this);
 
         this.getLogger().info("Started");
 
