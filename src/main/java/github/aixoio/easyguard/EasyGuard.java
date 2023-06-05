@@ -11,7 +11,6 @@ import github.aixoio.easyguard.commands.FlagCommand;
 import github.aixoio.easyguard.commands.GetIPCommand;
 import github.aixoio.easyguard.commands.TrustCommand;
 import github.aixoio.easyguard.commands.WhereClaimCommand;
-import github.aixoio.easyguard.events.WhereClaimCompassEvents;
 import github.aixoio.easyguard.events.antispam.AntiSpamAsyncPlayerChatEvent;
 import github.aixoio.easyguard.events.creeperguard.CreeperGuardDamageEvent;
 import github.aixoio.easyguard.events.creeperguard.CreeperGuardEntityExplodeEvent;
@@ -21,7 +20,6 @@ import github.aixoio.easyguard.events.rekillguard.ReKillGuardDamageEvent;
 import github.aixoio.easyguard.events.safelist.SafeListJoinEvent;
 import github.aixoio.easyguard.events.safelist.SafeListLeaveEvent;
 import github.aixoio.easyguard.events.tntguard.TNTGuardExplosionPrime;
-import github.aixoio.easyguard.util.CompassItemData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -29,7 +27,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.UUID;
 
 public final class EasyGuard extends JavaPlugin {
@@ -38,7 +35,6 @@ public final class EasyGuard extends JavaPlugin {
     private static EasyGuard PLUGIN;
     public static HashMap<UUID, String> lastMessageAntiSpam = new HashMap<UUID, String>();
     public static HashMap<UUID, Integer> warningsAntiSpam = new HashMap<UUID, Integer>();
-    public static HashMap<UUID, LinkedList<CompassItemData>> compassItemDataMap = new HashMap<UUID, LinkedList<CompassItemData>>();
 
     @Override
     public void onEnable() {
@@ -92,8 +88,6 @@ public final class EasyGuard extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new FlowGuardBlockFromToEvent(), this);
 
         this.getServer().getPluginManager().registerEvents(new AntiSpamAsyncPlayerChatEvent(), this);
-
-        this.getServer().getPluginManager().registerEvents(new WhereClaimCompassEvents(), this);
 
         this.getLogger().info("Started");
 
