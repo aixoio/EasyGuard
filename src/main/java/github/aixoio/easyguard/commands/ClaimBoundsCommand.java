@@ -57,14 +57,17 @@ public class ClaimBoundsCommand implements CommandExecutor {
 
             World world = player.getWorld();
 
-            Material corrorBlockMaterial = Material.getMaterial(EasyGuard.getPlugin().getConfig().getString("CORRONR_BLOCK"));
+            Material coronerBlockMaterial = Material.getMaterial(EasyGuard.getPlugin().getConfig().getString("CORONER_BLOCK"));
             Material lineBlockMaterial = Material.getMaterial(EasyGuard.getPlugin().getConfig().getString("LINE_BLOCk"));
+            Material coronerPointBlockMaterial = Material.getMaterial(EasyGuard.getPlugin().getConfig().getString("CORONER_POINT_BLOCK"));
 
-            boolean withcorrorblocks = true;
+            boolean withcoronerblocks = true;
             boolean withlineblocks = true;
+            boolean withcoronerpointblocks = true;
 
-            if (corrorBlockMaterial == null || corrorBlockMaterial == Material.AIR) withcorrorblocks = false;
+            if (coronerBlockMaterial == null || coronerBlockMaterial == Material.AIR) withcoronerblocks = false;
             if (lineBlockMaterial == null || lineBlockMaterial == Material.AIR) withlineblocks = false;
+            if (coronerPointBlockMaterial == null || coronerPointBlockMaterial == Material.AIR) withcoronerpointblocks = false;
 
             Particle.DustOptions dust = new Particle.DustOptions(Color.YELLOW, (float) EasyGuard.getPlugin().getConfig().getDouble("POINT_SIZE"));
 
@@ -93,81 +96,81 @@ public class ClaimBoundsCommand implements CommandExecutor {
             this.drawLineBetweenParticles(
                     new Location(world, locat1.getX(), locat1.getY(), locat1.getZ()),
                     new Location(world, locat1.getX(), locat2.getY(), locat1.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
             this.drawLineBetweenParticles(
                     new Location(world, locat1.getX(), locat1.getY(), locat1.getZ()),
                     new Location(world, locat2.getX(), locat1.getY(), locat1.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
             this.drawLineBetweenParticles(
                     new Location(world, locat1.getX(), locat1.getY(), locat1.getZ()),
                     new Location(world, locat1.getX(), locat1.getY(), locat2.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
 
             this.drawLineBetweenParticles(
                     new Location(world, locat1.getX(), locat2.getY(), locat1.getZ()),
                     new Location(world, locat2.getX(), locat2.getY(), locat1.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
             this.drawLineBetweenParticles(
                     new Location(world, locat1.getX(), locat2.getY(), locat1.getZ()),
                     new Location(world, locat1.getX(), locat2.getY(), locat2.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
             this.drawLineBetweenParticles(
                     new Location(world, locat2.getX(), locat1.getY(), locat2.getZ()),
                     new Location(world, locat2.getX(), locat2.getY(), locat2.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
             this.drawLineBetweenParticles(
                     new Location(world, locat2.getX(), locat1.getY(), locat1.getZ()),
                     new Location(world, locat2.getX(), locat2.getY(), locat1.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
             this.drawLineBetweenParticles(
                     new Location(world, locat1.getX(), locat1.getY(), locat2.getZ()),
                     new Location(world, locat1.getX(), locat2.getY(), locat2.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
             this.drawLineBetweenParticles(
                     new Location(world, locat1.getX(), locat2.getY(), locat2.getZ()),
                     new Location(world, locat2.getX(), locat2.getY(), locat2.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
             this.drawLineBetweenParticles(
                     new Location(world, locat2.getX(), locat2.getY(), locat1.getZ()),
                     new Location(world, locat2.getX(), locat2.getY(), locat2.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
             this.drawLineBetweenParticles(
                     new Location(world, locat1.getX(), locat1.getY(), locat2.getZ()),
                     new Location(world, locat2.getX(), locat1.getY(), locat2.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
             this.drawLineBetweenParticles(
                     new Location(world, locat2.getX(), locat1.getY(), locat1.getZ()),
                     new Location(world, locat2.getX(), locat1.getY(), locat2.getZ()),
-                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player);
+                    BASE_SEED, world, dust, COUNT, RANGE, withlineblocks, lineBlockMaterial, player, withcoronerpointblocks, coronerPointBlockMaterial);
 
 
-            if (withcorrorblocks) {
+            if (withcoronerblocks) {
 
-                player.sendBlockChange(locat1, corrorBlockMaterial.createBlockData());
+                player.sendBlockChange(locat1, coronerBlockMaterial.createBlockData());
 
-                player.sendBlockChange(new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat2.getZ()), corrorBlockMaterial.createBlockData());
-                player.sendBlockChange(new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat2.getZ()), corrorBlockMaterial.createBlockData());
-                player.sendBlockChange(new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat1.getZ()), corrorBlockMaterial.createBlockData());
-                player.sendBlockChange(new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat1.getZ()), corrorBlockMaterial.createBlockData());
+                player.sendBlockChange(new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat2.getZ()), coronerBlockMaterial.createBlockData());
+                player.sendBlockChange(new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat2.getZ()), coronerBlockMaterial.createBlockData());
+                player.sendBlockChange(new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat1.getZ()), coronerBlockMaterial.createBlockData());
+                player.sendBlockChange(new Location(player.getWorld(), locat1.getX(), locat2.getY(), locat1.getZ()), coronerBlockMaterial.createBlockData());
 
 
-                player.sendBlockChange(new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat2.getZ()), corrorBlockMaterial.createBlockData());
-                player.sendBlockChange(new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat2.getZ()), corrorBlockMaterial.createBlockData());
-                player.sendBlockChange(new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat1.getZ()), corrorBlockMaterial.createBlockData());
-                player.sendBlockChange(new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat1.getZ()), corrorBlockMaterial.createBlockData());
+                player.sendBlockChange(new Location(player.getWorld(), locat2.getX(), locat2.getY(), locat2.getZ()), coronerBlockMaterial.createBlockData());
+                player.sendBlockChange(new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat2.getZ()), coronerBlockMaterial.createBlockData());
+                player.sendBlockChange(new Location(player.getWorld(), locat2.getX(), locat1.getY(), locat1.getZ()), coronerBlockMaterial.createBlockData());
+                player.sendBlockChange(new Location(player.getWorld(), locat1.getX(), locat1.getY(), locat1.getZ()), coronerBlockMaterial.createBlockData());
 
-                player.sendBlockChange(locat2, corrorBlockMaterial.createBlockData());
+                player.sendBlockChange(locat2, coronerBlockMaterial.createBlockData());
 
                 new BukkitRunnable() {
 
@@ -283,7 +286,9 @@ public class ClaimBoundsCommand implements CommandExecutor {
 
     }
 
-    private void drawLineBetweenParticles(Location current, Location target, final double BASE_SPEED, World world, Particle.DustOptions dust, int count, double range, boolean withlineblocks, Material blockMaterial, Player player) {
+    private void drawLineBetweenParticles(Location current, Location target, final double BASE_SPEED, World world, Particle.DustOptions dust,
+                                          int count, double range, boolean withlineblocks, Material blockMaterial, Player player,
+                                          boolean withcoronerpointblocks, Material coronerPointBlockMaterial) {
 
         double diffX = (current.getX() - target.getX());
         double diffY = (current.getY() - target.getY());
@@ -301,13 +306,32 @@ public class ClaimBoundsCommand implements CommandExecutor {
         double y = current.getY();
         double z = current.getZ();
 
+        final double startX = x;
+        final double startY = y;
+        final double startZ = z;
+
         while (Math.abs(x - target.getX()) > range || Math.abs(y - target.getY()) > range || Math.abs(z - target.getZ()) > range) {
+
+            final double nextX = x + xv;
+            final double nextY = y + yv;
+            final double nextZ = z + zv;
 
             if (count != 0) world.spawnParticle(Particle.REDSTONE, new Location(world, x, y, z), count, dust);
 
             if (withlineblocks) {
 
                 player.sendBlockChange(new Location(world, x, y, z), blockMaterial.createBlockData());
+
+            }
+
+            if (withcoronerpointblocks) {
+
+                if (!(Math.abs(nextX - target.getX()) > range || Math.abs(nextY - target.getY()) > range || Math.abs(nextZ - target.getZ()) > range)) {
+
+                    player.sendBlockChange(new Location(world, x, y, z), coronerPointBlockMaterial.createBlockData());
+                    player.sendBlockChange(new Location(world, startX + Math.ceil(xv), startY + Math.ceil(yv), startZ + Math.ceil(zv)), coronerPointBlockMaterial.createBlockData());
+
+                }
 
             }
 
