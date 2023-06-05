@@ -17,7 +17,9 @@ SHOW_FOR_SECONDS: 5
 ALLOW_MAX_SIZE_BYPASS: true
 
 # This will be cubed, set to 0 to disable this
-MAX_SIZE: 35
+MAX_SIZE_WIDTH: 35
+MAX_SIZE_LENGTH: 35
+MAX_SIZE_HEIGHT: 35
 
 # SAFE-LIST
 

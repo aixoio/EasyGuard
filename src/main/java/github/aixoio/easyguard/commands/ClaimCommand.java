@@ -120,9 +120,12 @@ public class ClaimCommand implements CommandExecutor {
 
                 }
 
-                if (EasyGuard.getPlugin().getConfig().getInt("MAX_SIZE") != 0 && !bypassSize) {
+                final int MAX_SIZE = Math.abs(EasyGuard.getPlugin().getConfig().getInt("MAX_SIZE_LENGTH")) *
+                        Math.abs(EasyGuard.getPlugin().getConfig().getInt("MAX_SIZE_WIDTH")) *
+                        Math.abs(EasyGuard.getPlugin().getConfig().getInt("MAX_SIZE_HEIGHT"));
 
-                    final int MAX_SIZE = (int) Math.pow(Math.abs(EasyGuard.getPlugin().getConfig().getInt("MAX_SIZE")), 3.0);
+
+                if (MAX_SIZE != 0 && !bypassSize) {
 
                     double length = Math.abs(blockVector2.getX() - blockVector1.getX());
                     double width = Math.abs(blockVector2.getY() - blockVector1.getY());
