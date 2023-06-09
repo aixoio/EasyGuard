@@ -45,8 +45,8 @@
       - /flag add \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
       - /flags add \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
     - **Remove**
-      - /flag add \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
-      - /flags add \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
+      - /flag remove \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
+      - /flags remove \<flag\> \<claim-name\> \<owner|member|non-members|non-owners|everyone|none\>
     - **Current**
       - /flag current
       - /flags current
