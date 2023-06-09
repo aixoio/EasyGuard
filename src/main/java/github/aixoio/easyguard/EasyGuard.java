@@ -16,6 +16,7 @@ import github.aixoio.easyguard.events.creeperguard.CreeperGuardDamageEvent;
 import github.aixoio.easyguard.events.creeperguard.CreeperGuardEntityExplodeEvent;
 import github.aixoio.easyguard.events.endermanguard.EndermanGuardBlockTakeEvent;
 import github.aixoio.easyguard.events.flowguard.FlowGuardBlockFromToEvent;
+import github.aixoio.easyguard.events.flowguard.FlowGuardSpongeAbsorbEvent;
 import github.aixoio.easyguard.events.rekillguard.ReKillGuardDamageEvent;
 import github.aixoio.easyguard.events.safelist.SafeListJoinEvent;
 import github.aixoio.easyguard.events.safelist.SafeListLeaveEvent;
@@ -86,6 +87,7 @@ public final class EasyGuard extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new ReKillGuardDamageEvent(), this);
 
         this.getServer().getPluginManager().registerEvents(new FlowGuardBlockFromToEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new FlowGuardSpongeAbsorbEvent(), this);
 
         this.getServer().getPluginManager().registerEvents(new AntiSpamAsyncPlayerChatEvent(), this);
 
