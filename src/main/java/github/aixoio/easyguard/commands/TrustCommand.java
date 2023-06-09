@@ -55,6 +55,7 @@ public class TrustCommand implements CommandExecutor {
         if (mode.toLowerCase().equals("add") && args.length < 4) return false;
         if (mode.toLowerCase().equals("remove") && args.length < 3) return false;
         if (mode.toLowerCase().equals("list") && args.length < 2) return false;
+        if (mode.toLowerCase().equals("current") && args.length < 1) return false;
 
 
 
@@ -241,6 +242,54 @@ public class TrustCommand implements CommandExecutor {
                         continue;
 
                     }
+
+                    sender.sendMessage(String.format("%s%s%s has the following players trusted:", ChatColor.GOLD, region.getId(), ChatColor.GREEN));
+                    sender.sendMessage(String.format("%sOwners: %s%s", ChatColor.BLUE, ChatColor.GOLD, ownersString));
+                    sender.sendMessage(String.format("%sMembers: %s%s", ChatColor.BLUE, ChatColor.GOLD, membersString));
+
+                }
+
+            } catch (Exception e) {
+
+                sender.sendMessage(ChatColor.RED + "Not found!");
+
+                EasyGuard.getPlugin().getLogger().info(e.toString());
+
+            }
+
+        }
+
+        if (mode.toLowerCase().equals("current")) {
+
+            try {
+
+                Location targetLocaiton = player.getLocation();
+
+                if (targetLocaiton == null) {
+
+                    sender.sendMessage(ChatColor.RED + "Not found!");
+                    return true;
+
+                }
+
+                BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
+
+                ApplicableRegionSet applicableRegionSet = WorldGuard
+                        .getInstance()
+                        .getPlatform()
+                        .getRegionContainer()
+                        .get(localPlayer.getWorld())
+                        .getApplicableRegions(
+                                targetLocaitonAsVector
+                        );
+
+                for (ProtectedRegion region : applicableRegionSet) {
+
+                    DefaultDomain owners = region.getOwners();
+                    DefaultDomain members = region.getMembers();
+
+                    String ownersString = this.toUserFriendlyStringConvertUUID(owners.toUserFriendlyString());
+                    String membersString = this.toUserFriendlyStringConvertUUID(members.toUserFriendlyString());
 
                     sender.sendMessage(String.format("%s%s%s has the following players trusted:", ChatColor.GOLD, region.getId(), ChatColor.GREEN));
                     sender.sendMessage(String.format("%sOwners: %s%s", ChatColor.BLUE, ChatColor.GOLD, ownersString));

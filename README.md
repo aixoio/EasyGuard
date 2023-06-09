@@ -26,6 +26,8 @@
       - /trust remove \<player\> \<claim-name\>
     - **List**
       - /trust list \<claim-name\>
+    - **Current**
+      - /trust current
 - delete-claim
   - **Description:** Lets players delete claims
   - **Permission:** easyguard.delete-claim
