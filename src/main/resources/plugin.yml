@@ -47,6 +47,14 @@ commands:
     description: Shows the location of a claim
     usage: /<command> [claim-name]
     permission: easyguard.where-claim
+  claim-help:
+    description: Shows a info book
+    usage: /<command>
+    permission: easyguard.info-book
+    aliases:
+      - eg-help
+      - easy-guard-help
+      - guard-help
 permissions:
   easyguard.claim:
     description: Gives access to /claim
@@ -84,3 +92,9 @@ permissions:
   easyguard.where-claim:
     description: Lets players use /where-claim
     default: true
+  easyguard.info-book:
+    description: Lets players use /claim-help
+    default: true
+  easyguard.info-book-admin:
+    description: Lets players get the admin book when they run /claim-help
+    default: op

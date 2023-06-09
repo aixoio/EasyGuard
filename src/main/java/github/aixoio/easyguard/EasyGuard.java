@@ -2,21 +2,14 @@ package github.aixoio.easyguard;
 
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import github.aixoio.easyguard.commands.ClaimBoundsCommand;
-import github.aixoio.easyguard.commands.ClaimCommand;
-import github.aixoio.easyguard.commands.ClaimsCommand;
-import github.aixoio.easyguard.commands.CurrentClaimCommand;
-import github.aixoio.easyguard.commands.DeleteClaimCommand;
-import github.aixoio.easyguard.commands.FlagCommand;
-import github.aixoio.easyguard.commands.GetIPCommand;
-import github.aixoio.easyguard.commands.TrustCommand;
-import github.aixoio.easyguard.commands.WhereClaimCommand;
+import github.aixoio.easyguard.commands.*;
 import github.aixoio.easyguard.events.antispam.AntiSpamAsyncPlayerChatEvent;
 import github.aixoio.easyguard.events.creeperguard.CreeperGuardDamageEvent;
 import github.aixoio.easyguard.events.creeperguard.CreeperGuardEntityExplodeEvent;
 import github.aixoio.easyguard.events.endermanguard.EndermanGuardBlockTakeEvent;
 import github.aixoio.easyguard.events.flowguard.FlowGuardBlockFromToEvent;
 import github.aixoio.easyguard.events.flowguard.FlowGuardSpongeAbsorbEvent;
+import github.aixoio.easyguard.events.infobook.InfoBookFirstJoinEvent;
 import github.aixoio.easyguard.events.rekillguard.ReKillGuardDamageEvent;
 import github.aixoio.easyguard.events.safelist.SafeListJoinEvent;
 import github.aixoio.easyguard.events.safelist.SafeListLeaveEvent;
@@ -73,6 +66,7 @@ public final class EasyGuard extends JavaPlugin {
         this.getCommand("claim-bounds").setExecutor(new ClaimBoundsCommand());
         this.getCommand("get-ip").setExecutor(new GetIPCommand());
         this.getCommand("where-claim").setExecutor(new WhereClaimCommand());
+        this.getCommand("claim-help").setExecutor(new InfoBookCommand());
 
         this.getServer().getPluginManager().registerEvents(new SafeListJoinEvent(), this);
         this.getServer().getPluginManager().registerEvents(new SafeListLeaveEvent(), this);
@@ -90,6 +84,8 @@ public final class EasyGuard extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new FlowGuardSpongeAbsorbEvent(), this);
 
         this.getServer().getPluginManager().registerEvents(new AntiSpamAsyncPlayerChatEvent(), this);
+
+        this.getServer().getPluginManager().registerEvents(new InfoBookFirstJoinEvent(), this);
 
         this.getLogger().info("Started");
 

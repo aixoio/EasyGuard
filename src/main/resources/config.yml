@@ -16,6 +16,11 @@ SHOW_FOR_SECONDS: 5
 
 ALLOW_MAX_SIZE_BYPASS: true
 
+# INFO BOOK SETTINGS
+
+# Default: true
+GIVE_BOOK_ON_FIRST_JOIN: true
+
 # This will be cubed, set to 0 to disable this
 MAX_SIZE_WIDTH: 35
 MAX_SIZE_LENGTH: 35

@@ -68,6 +68,14 @@
   - **Permission:** easyguard.where-claim
   - **Usage:**
     - /where-claim \<claim-name\>
+- claim-help
+  - **Description:** Shows a info book
+  - **Permission:** easyguard.info-book
+  - **Usage:**
+    - /claim-help
+    - /eg-help
+    - /easy-guard-help
+    - /guard-help
 ## Permissions
 - easyguard.safelist-bypass
   - **Description:** Lets players bypass the Safe-list
@@ -77,4 +85,7 @@
   - **Default:** OP
 - easyguard.get-ip
   - **Description:** Lets players use /get-ip
+  - **Default:** OP
+- easyguard.info-book-admin:
+  - **Description:** When you run /claim-help you will get the item and open the gui
   - **Default:** OP
