@@ -80,7 +80,7 @@ permissions:
     default: op
   easyguard.bounds:
     description: Lets players use /claim-bounds
-    default: op
+    default: true
   easyguard.where-claim:
     description: Lets players use /where-claim
     default: true
