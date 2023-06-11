@@ -67,6 +67,7 @@ public final class EasyGuard extends JavaPlugin {
         this.getCommand("get-ip").setExecutor(new GetIPCommand());
         this.getCommand("where-claim").setExecutor(new WhereClaimCommand());
         this.getCommand("claim-help").setExecutor(new InfoBookCommand());
+        this.getCommand("resize-claim").setExecutor(new ResizeClaimCommand());
 
         this.getServer().getPluginManager().registerEvents(new SafeListJoinEvent(), this);
         this.getServer().getPluginManager().registerEvents(new SafeListLeaveEvent(), this);

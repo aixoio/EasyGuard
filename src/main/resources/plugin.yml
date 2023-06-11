@@ -55,6 +55,10 @@ commands:
       - eg-help
       - easy-guard-help
       - guard-help
+  resize-claim:
+    description: Lets you resize a claim
+    usage: /<command> <name> <x> <y> <z> <x> <y> <z>
+    permission: easyguard.resize-claim
 permissions:
   easyguard.claim:
     description: Gives access to /claim
@@ -98,3 +102,6 @@ permissions:
   easyguard.info-book-admin:
     description: Lets players get the admin book when they run /claim-help
     default: op
+  easyguard.resize-claim:
+    description: Lets players use /resize-claim
+    default: true

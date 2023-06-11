@@ -79,7 +79,7 @@ public class InfoBooks {
                 "To see info book please use: " + ChatColor.ITALIC + "/claim-help" +
                         "\n/eg-help" +
                         "\n/easy-guard-help" +
-                        "\n/guard-help"
+                        "\n/guard-help" + "\n\nTo resize a claim please use: " + ChatColor.ITALIC + "/resize-claim <name> <x> <y> <z> <x> <y> <z>"
 
         );
 
