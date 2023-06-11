@@ -1,5 +1,6 @@
 package github.aixoio.easyguard.util;
 
+import github.aixoio.easyguard.EasyGuard;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
@@ -82,6 +83,19 @@ public class InfoBooks {
                         "\n/guard-help" + "\n\nTo resize a claim please use: " + ChatColor.ITALIC + "/resize-claim <name> <x> <y> <z> <x> <y> <z>"
 
         );
+
+
+        Material materialsitck = Material.getMaterial(EasyGuard.getPlugin().getConfig().getString("LOCATION_STICK_ITEM"));
+
+        if (!(materialsitck == null || materialsitck.isAir())) {
+
+            meta.addPage(
+
+                    ChatColor.LIGHT_PURPLE + "" + ChatColor.BOLD + "Other:\n" +
+                            ChatColor.RESET + "\nTo see you current location please right click any " + materialsitck.toString().replace('_', ' ').toLowerCase()
+            );
+
+        }
 
         book.setItemMeta(meta);
 

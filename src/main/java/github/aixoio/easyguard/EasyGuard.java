@@ -10,6 +10,8 @@ import github.aixoio.easyguard.events.endermanguard.EndermanGuardBlockTakeEvent;
 import github.aixoio.easyguard.events.flowguard.FlowGuardBlockFromToEvent;
 import github.aixoio.easyguard.events.flowguard.FlowGuardSpongeAbsorbEvent;
 import github.aixoio.easyguard.events.infobook.InfoBookFirstJoinEvent;
+import github.aixoio.easyguard.events.locationstick.LocationStickInteractEvent;
+import github.aixoio.easyguard.events.locationstick.LocationStickJoinEvent;
 import github.aixoio.easyguard.events.rekillguard.ReKillGuardDamageEvent;
 import github.aixoio.easyguard.events.safelist.SafeListJoinEvent;
 import github.aixoio.easyguard.events.safelist.SafeListLeaveEvent;
@@ -29,6 +31,7 @@ public final class EasyGuard extends JavaPlugin {
     private static EasyGuard PLUGIN;
     public static HashMap<UUID, String> lastMessageAntiSpam = new HashMap<UUID, String>();
     public static HashMap<UUID, Integer> warningsAntiSpam = new HashMap<UUID, Integer>();
+    public static HashMap<UUID, String> lastLocationStickMsg = new HashMap<UUID, String>();
 
     @Override
     public void onEnable() {
@@ -87,6 +90,9 @@ public final class EasyGuard extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new AntiSpamAsyncPlayerChatEvent(), this);
 
         this.getServer().getPluginManager().registerEvents(new InfoBookFirstJoinEvent(), this);
+
+        this.getServer().getPluginManager().registerEvents(new LocationStickJoinEvent(), this);
+        this.getServer().getPluginManager().registerEvents(new LocationStickInteractEvent(), this);
 
         this.getLogger().info("Started");
 

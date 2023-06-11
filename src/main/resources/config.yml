@@ -26,6 +26,14 @@ MAX_SIZE_WIDTH: 35
 MAX_SIZE_LENGTH: 35
 MAX_SIZE_HEIGHT: 35
 
+# LOCATION SICK
+
+LOCATION_STICK_ACTIVE: true
+LOCATION_STICK_GIVE_ON_FIRST_JOIN: true
+LOCATION_STICK_ITEM: STICK
+# Set to null to disable
+LOCATION_STICK_ITEM_NAME: "{yellow}{bold}Location stick"
+
 # SAFE-LIST
 
 # Set this to true to enable this
