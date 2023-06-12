@@ -95,7 +95,7 @@
   - **Description:** When you run /claim-help you will get the item and open the gui
   - **Default:** OP
 ## License
-### This code is under the MIT license
+### This software is under the MIT license
 MIT License
 
 Copyright (c) 2023 aixoio
