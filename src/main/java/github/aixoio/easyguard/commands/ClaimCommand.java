@@ -7,6 +7,8 @@ import com.sk89q.worldguard.domains.DefaultDomain;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import github.aixoio.easyguard.EasyGuard;
+import github.aixoio.easyguard.util.sqlite.SQLiteDataMode;
+import github.aixoio.easyguard.util.sqlite.data.SQLiteClaimData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -153,6 +155,14 @@ public class ClaimCommand implements CommandExecutor {
 
                 }
 
+
+                if (EasyGuard.SQLITE_MANAGER.claimExists(player.getUniqueId().toString(), regionName)) {
+
+                    sender.sendMessage(ChatColor.RED + "A claim with that name already exists!");
+                    return true;
+
+                }
+
                 ProtectedCuboidRegion protectedCuboidRegion = new ProtectedCuboidRegion(name, blockVector1, blockVector2);
 
                 DefaultDomain defaultDomain = new DefaultDomain();
@@ -169,12 +179,13 @@ public class ClaimCommand implements CommandExecutor {
                         get(localPlayer.getWorld()).
                         addRegion(protectedCuboidRegion);
 
+
+                SQLiteClaimData claimData = new SQLiteClaimData(player.getUniqueId().toString(), regionName, (int) x1,
+                        (int) y1, (int) z1, player.getWorld().getName(), name);
+
+                EasyGuard.SQLITE_MANAGER.setClaim(claimData, SQLiteDataMode.INSERT);
+
                 sender.sendMessage(ChatColor.GREEN + "Claim created with the name of " + ChatColor.BOLD + ChatColor.LIGHT_PURPLE + args[0]);
-
-                EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s.location", player.getDisplayName(), args[0]), new Location(player.getWorld(), x1, y1, z1));
-                EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s.truename", player.getDisplayName(), args[0]), name);
-                EasyGuard.getPlugin().saveConfig();
-
 
             }
 

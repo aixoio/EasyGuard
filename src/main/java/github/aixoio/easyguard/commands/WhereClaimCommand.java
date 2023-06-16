@@ -6,6 +6,7 @@ import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import github.aixoio.easyguard.EasyGuard;
+import github.aixoio.easyguard.util.sqlite.data.SQLiteClaimData;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -38,37 +39,20 @@ public class WhereClaimCommand implements CommandExecutor {
 
         Player player = (Player) sender;
 
-        LocalPlayer localPlayer = EasyGuard.getWorldGuard().wrapPlayer(player);
 
         try {
 
-            Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+            SQLiteClaimData claimData = EasyGuard.SQLITE_MANAGER.getClaim(player.getUniqueId().toString(), location);
 
-            if (targetLocaiton == null) {
+            if (claimData == null) {
 
                 sender.sendMessage(ChatColor.RED + "Not found!");
                 return true;
 
             }
 
-
-            BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
-
-            ApplicableRegionSet applicableRegionSet = WorldGuard
-                    .getInstance()
-                    .getPlatform()
-                    .getRegionContainer()
-                    .get(localPlayer.getWorld())
-                    .getApplicableRegions(
-                            targetLocaitonAsVector
-                    );
-
-            for (ProtectedRegion region : applicableRegionSet) {
-
-                sender.sendMessage(ChatColor.GREEN + "The location of " + region.getId() + " is X: " + region.getMaximumPoint().getX() +
-                        ", Y: " + region.getMaximumPoint().getY() + ", Z: " + region.getMaximumPoint().getZ());
-
-            }
+            sender.sendMessage(ChatColor.GREEN + "The location of " + claimData.getName() + " is:" + ChatColor.YELLOW + " X: " + claimData.getX() +
+                    ", Y: " + claimData.getY() + ", Z: " + claimData.getZ());
 
         } catch (Exception e) {
 

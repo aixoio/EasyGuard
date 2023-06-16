@@ -10,6 +10,7 @@ import com.sk89q.worldguard.protection.flags.RegionGroup;
 import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import github.aixoio.easyguard.EasyGuard;
+import github.aixoio.easyguard.util.sqlite.data.SQLiteClaimData;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -96,9 +97,9 @@ public class FlagCommand implements CommandExecutor {
 
                 try {
 
-                    Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+                    SQLiteClaimData claimData = EasyGuard.SQLITE_MANAGER.getClaim(player.getUniqueId().toString(), location);
 
-                    if (targetLocaiton == null) {
+                    if (claimData == null) {
 
                         sender.sendMessage(ChatColor.RED + "Not found!");
                         return true;
@@ -114,29 +115,21 @@ public class FlagCommand implements CommandExecutor {
 
                     }
 
-                    BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
-
-                    ApplicableRegionSet applicableRegionSet = WorldGuard
+                    ProtectedRegion region = WorldGuard
                             .getInstance()
                             .getPlatform()
                             .getRegionContainer()
                             .get(localPlayer.getWorld())
-                            .getApplicableRegions(
-                                    targetLocaitonAsVector
-                            );
+                            .getRegion(claimData.getTruename());
 
-                    for (ProtectedRegion region : applicableRegionSet) {
+                    DefaultDomain owners = region.getOwners();
 
-                        DefaultDomain owners = region.getOwners();
+                    if (!owners.contains(localPlayer)) return true;
 
-                        if (!owners.contains(localPlayer)) continue;
+                    region.setFlag(flagToAdd, StateFlag.State.ALLOW);
+                    region.setFlag(flagToAdd.getRegionGroupFlag(), regionGroup);
 
-                        region.setFlag(flagToAdd, StateFlag.State.ALLOW);
-                        region.setFlag(flagToAdd.getRegionGroupFlag(), regionGroup);
-
-                        sender.sendMessage(ChatColor.GREEN + "Add flag to " + region.getId());
-
-                    }
+                    sender.sendMessage(ChatColor.GREEN + "Add flag to " + region.getId());
 
                 } catch (Exception e) {
 
@@ -187,9 +180,9 @@ public class FlagCommand implements CommandExecutor {
 
                 try {
 
-                    Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+                    SQLiteClaimData claimData = EasyGuard.SQLITE_MANAGER.getClaim(player.getUniqueId().toString(), location);
 
-                    if (targetLocaiton == null) {
+                    if (claimData == null) {
 
                         sender.sendMessage(ChatColor.RED + "Not found!");
                         return true;
@@ -205,29 +198,22 @@ public class FlagCommand implements CommandExecutor {
 
                     }
 
-                    BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
 
-                    ApplicableRegionSet applicableRegionSet = WorldGuard
+                    ProtectedRegion region = WorldGuard
                             .getInstance()
                             .getPlatform()
                             .getRegionContainer()
                             .get(localPlayer.getWorld())
-                            .getApplicableRegions(
-                                    targetLocaitonAsVector
-                            );
+                            .getRegion(claimData.getTruename());
 
-                    for (ProtectedRegion region : applicableRegionSet) {
+                    DefaultDomain owners = region.getOwners();
 
-                        DefaultDomain owners = region.getOwners();
+                    if (!owners.contains(localPlayer)) return true;
 
-                        if (!owners.contains(localPlayer)) continue;
+                    region.setFlag(flagToAdd, StateFlag.State.DENY);
+                    region.setFlag(flagToAdd.getRegionGroupFlag(), regionGroup);
 
-                        region.setFlag(flagToAdd, StateFlag.State.DENY);
-                        region.setFlag(flagToAdd.getRegionGroupFlag(), regionGroup);
-
-                        sender.sendMessage(ChatColor.GREEN + "Removed flag from " + region.getId());
-
-                    }
+                    sender.sendMessage(ChatColor.GREEN + "Removed flag from " + region.getId());
 
                 } catch (Exception e) {
 
@@ -335,9 +321,9 @@ public class FlagCommand implements CommandExecutor {
 
                 try {
 
-                    Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+                    SQLiteClaimData claimData = EasyGuard.SQLITE_MANAGER.getClaim(player.getUniqueId().toString(), location);
 
-                    if (targetLocaiton == null) {
+                    if (claimData == null) {
 
                         sender.sendMessage(ChatColor.RED + "Not found!");
                         return true;
@@ -353,29 +339,21 @@ public class FlagCommand implements CommandExecutor {
 
                     }
 
-                    BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
-
-                    ApplicableRegionSet applicableRegionSet = WorldGuard
+                    ProtectedRegion region = WorldGuard
                             .getInstance()
                             .getPlatform()
                             .getRegionContainer()
                             .get(localPlayer.getWorld())
-                            .getApplicableRegions(
-                                    targetLocaitonAsVector
-                            );
+                            .getRegion(claimData.getTruename());
 
-                    for (ProtectedRegion region : applicableRegionSet) {
+                    DefaultDomain owners = region.getOwners();
 
-                        DefaultDomain owners = region.getOwners();
+                    if (!owners.contains(localPlayer)) return true;
 
-                        if (!owners.contains(localPlayer)) continue;
+                    region.setFlag(flagToAdd, null);
+                    region.setFlag(flagToAdd.getRegionGroupFlag(), regionGroup);
 
-                        region.setFlag(flagToAdd, null);
-                        region.setFlag(flagToAdd.getRegionGroupFlag(), regionGroup);
-
-                        sender.sendMessage(ChatColor.GREEN + "Reset flag from " + region.getId());
-
-                    }
+                    sender.sendMessage(ChatColor.GREEN + "Reset flag from " + region.getId());
 
                 } catch (Exception e) {
 

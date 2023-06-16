@@ -16,13 +16,19 @@ import github.aixoio.easyguard.events.rekillguard.ReKillGuardDamageEvent;
 import github.aixoio.easyguard.events.safelist.SafeListJoinEvent;
 import github.aixoio.easyguard.events.safelist.SafeListLeaveEvent;
 import github.aixoio.easyguard.events.tntguard.TNTGuardExplosionPrime;
+import github.aixoio.easyguard.util.sqlite.SQLiteDataMode;
+import github.aixoio.easyguard.util.sqlite.SQLiteManager;
+import github.aixoio.easyguard.util.sqlite.data.SQLiteClaimData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.UUID;
 
 public final class EasyGuard extends JavaPlugin {
@@ -33,6 +39,8 @@ public final class EasyGuard extends JavaPlugin {
     public static HashMap<UUID, Integer> warningsAntiSpam = new HashMap<UUID, Integer>();
     public static HashMap<UUID, String> lastLocationStickMsg = new HashMap<UUID, String>();
 
+    public static SQLiteManager SQLITE_MANAGER;
+
     @Override
     public void onEnable() {
 
@@ -40,6 +48,14 @@ public final class EasyGuard extends JavaPlugin {
 
         EasyGuard.PLUGIN = this;
 
+        this.getDataFolder().mkdir();
+
+        try {
+            EasyGuard.SQLITE_MANAGER = new SQLiteManager(this.getDataFolder() + "/database.db");
+        } catch (ClassNotFoundException | SQLException e) {
+            this.getServer().getPluginManager().disablePlugin(this);
+            throw new RuntimeException(e);
+        }
 
         if (EasyGuard.getWorldGuard() == null) {
 
@@ -94,6 +110,48 @@ public final class EasyGuard extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new LocationStickJoinEvent(), this);
         this.getServer().getPluginManager().registerEvents(new LocationStickInteractEvent(), this);
 
+        if (this.getConfig().get("data") != null) {
+
+            this.getLogger().info("Converting legacy database to SQLite database...");
+
+            Set<String> allplayerusernames = this.getConfig().getConfigurationSection("data").getKeys(false);
+
+            for (String username : allplayerusernames) {
+
+                Set<String> allplayerclaims = this.getConfig().getConfigurationSection("data." + username).getKeys(false);
+
+                for (String claimname : allplayerclaims) {
+
+                    Location targetLocaiton = this.getConfig().getLocation(String.format("data.%s.%s.location", username, claimname));
+                    String truename = this.getConfig().getString(String.format("data.%s.%s.truename", username, claimname));
+
+                    if (targetLocaiton == null) continue;
+                    if (truename == null) continue;
+
+                    String uuid = Bukkit.getOfflinePlayer(username).getUniqueId().toString();
+
+                    SQLiteClaimData claimData = new SQLiteClaimData(uuid, claimname, (int) targetLocaiton.getX(), (int) targetLocaiton.getY(),
+                            (int) targetLocaiton.getZ(), targetLocaiton.getWorld().getName(), truename);
+
+                    try {
+
+                        EasyGuard.SQLITE_MANAGER.setClaim(claimData, SQLiteDataMode.INSERT);
+
+                    } catch (SQLException e) {
+                        continue;
+                    }
+
+                }
+
+            }
+
+            this.getConfig().set("data", null);
+            this.saveConfig();
+
+            this.getLogger().info("Converted legacy database to SQLite database!");
+
+        }
+
         this.getLogger().info("Started");
 
     }
@@ -104,6 +162,12 @@ public final class EasyGuard extends JavaPlugin {
         this.getLogger().info("Stopping...");
 
         this.saveConfig();
+
+        try {
+            EasyGuard.SQLITE_MANAGER.closeConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         this.getLogger().info("Stopped");
 

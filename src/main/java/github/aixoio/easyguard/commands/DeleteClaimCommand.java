@@ -1,5 +1,6 @@
 package github.aixoio.easyguard.commands;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;
@@ -7,6 +8,9 @@ import com.sk89q.worldguard.domains.DefaultDomain;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import github.aixoio.easyguard.EasyGuard;
+import github.aixoio.easyguard.util.sqlite.SQLiteDataMode;
+import github.aixoio.easyguard.util.sqlite.data.SQLiteClaimData;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -44,50 +48,41 @@ public class DeleteClaimCommand implements CommandExecutor {
 
         try {
 
-            Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+            SQLiteClaimData claimData = EasyGuard.SQLITE_MANAGER.getClaim(player.getUniqueId().toString(), location);
 
-            if (targetLocaiton == null) {
+            if (claimData == null) {
 
                 sender.sendMessage(ChatColor.RED + "Not found!");
                 return true;
 
             }
 
-            BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
-
-            ApplicableRegionSet applicableRegionSet = WorldGuard
+            ProtectedRegion region = WorldGuard
                     .getInstance()
                     .getPlatform()
                     .getRegionContainer()
                     .get(localPlayer.getWorld())
-                    .getApplicableRegions(
-                            targetLocaitonAsVector
-                    );
+                    .getRegion(claimData.getTruename());
 
-            for (ProtectedRegion region : applicableRegionSet) {
+            DefaultDomain owners = region.getOwners();
 
-                DefaultDomain owners = region.getOwners();
+            if (!owners.contains(localPlayer)) {
 
-                if (!owners.contains(localPlayer)) {
-
-                    sender.sendMessage(ChatColor.RED + "You cannot do that!");
-                    continue;
-
-                }
-
-                WorldGuard
-                        .getInstance()
-                        .getPlatform()
-                        .getRegionContainer()
-                        .get(localPlayer.getWorld())
-                        .removeRegion(region.getId());
-
-                EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s", player.getDisplayName(), location), null);
-                EasyGuard.getPlugin().saveConfig();
-
-                sender.sendMessage(ChatColor.GREEN + region.getId() + " was deleted!");
+                sender.sendMessage(ChatColor.RED + "You cannot do that!");
+                return true;
 
             }
+
+            WorldGuard
+                    .getInstance()
+                    .getPlatform()
+                    .getRegionContainer()
+                    .get(localPlayer.getWorld())
+                    .removeRegion(region.getId());
+
+            EasyGuard.SQLITE_MANAGER.deleteClaim(claimData.getId());
+
+            sender.sendMessage(ChatColor.GREEN + region.getId() + " was deleted!");
 
         } catch (Exception e) {
 

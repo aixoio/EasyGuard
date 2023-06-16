@@ -1,6 +1,7 @@
 package github.aixoio.easyguard.commands;
 
 import github.aixoio.easyguard.EasyGuard;
+import github.aixoio.easyguard.util.sqlite.data.SQLiteClaimData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -8,6 +9,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.Set;
 
 public class ClaimsCommand implements CommandExecutor {
@@ -30,33 +33,27 @@ public class ClaimsCommand implements CommandExecutor {
 
         }
 
-        String playername = player.getDisplayName();
-
         try {
 
-            Set<String> dataKeys = EasyGuard.getPlugin().getConfig().getConfigurationSection("data." + playername).getKeys(false);
+            LinkedList<SQLiteClaimData> claims = EasyGuard.SQLITE_MANAGER.getClaims(player.getUniqueId().toString());
 
-
-            if (dataKeys.size() == 0) {
+            if (claims.size() == 0) {
 
                 sender.sendMessage(ChatColor.RED + "You do not have any claims!");
                 return true;
 
             }
 
-            sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "You own the following claims");
+            sender.sendMessage(ChatColor.BLUE + "" + ChatColor.BOLD + "You own the following claims:");
 
-            for (String key : dataKeys) {
+            for (SQLiteClaimData claim : claims) {
 
-                sender.sendMessage(ChatColor.GOLD + key);
+                sender.sendMessage(String.format("%s- %s%s", ChatColor.DARK_GRAY, ChatColor.GOLD, claim.getName()));
 
             }
 
-        } catch (Exception e) {
-
-            sender.sendMessage(ChatColor.RED + "You do not have any claims!");
-            Bukkit.getServer().getLogger().info(e.getMessage());
-
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return true;

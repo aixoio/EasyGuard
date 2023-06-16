@@ -7,6 +7,7 @@ import com.sk89q.worldguard.domains.DefaultDomain;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import github.aixoio.easyguard.EasyGuard;
+import github.aixoio.easyguard.util.sqlite.data.SQLiteClaimData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -74,55 +75,47 @@ public class TrustCommand implements CommandExecutor {
 
             try {
 
-                Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+                SQLiteClaimData claimData = EasyGuard.SQLITE_MANAGER.getClaim(player.getUniqueId().toString(), location);
 
-                if (targetLocaiton == null) {
+                if (claimData == null) {
 
                     sender.sendMessage(ChatColor.RED + "Not found!");
                     return true;
 
                 }
 
-                BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
-
-                ApplicableRegionSet applicableRegionSet = WorldGuard
+                ProtectedRegion region = WorldGuard
                         .getInstance()
                         .getPlatform()
                         .getRegionContainer()
                         .get(localPlayer.getWorld())
-                        .getApplicableRegions(
-                                targetLocaitonAsVector
-                        );
+                        .getRegion(claimData.getTruename());
 
-                for (ProtectedRegion region : applicableRegionSet) {
+                DefaultDomain owners = region.getOwners();
 
-                    DefaultDomain owners = region.getOwners();
+                if (!owners.contains(localPlayer)) {
 
-                    if (!owners.contains(localPlayer)) {
-
-                        sender.sendMessage(ChatColor.RED + "You cannot do that!");
-                        continue;
-
-                    }
-
-                    LocalPlayer targetPlayer = EasyGuard.getWorldGuard().wrapPlayer(Bukkit.getPlayer(targetPlayerUsername));
-
-                    if (level.equalsIgnoreCase("owner")) {
-
-                        owners.addPlayer(targetPlayer);
-                        region.setOwners(owners);
-
-                    } else {
-
-                        DefaultDomain members = region.getMembers();
-                        members.addPlayer(targetPlayer);
-                        region.setMembers(members);
-
-                    }
-
-                    sender.sendMessage(ChatColor.GREEN + targetPlayerUsername + " was added to " + region.getId());
+                    sender.sendMessage(ChatColor.RED + "You cannot do that!");
+                    return true;
 
                 }
+
+                LocalPlayer targetPlayer = EasyGuard.getWorldGuard().wrapPlayer(Bukkit.getPlayer(targetPlayerUsername));
+
+                if (level.equalsIgnoreCase("owner")) {
+
+                    owners.addPlayer(targetPlayer);
+                    region.setOwners(owners);
+
+                } else {
+
+                    DefaultDomain members = region.getMembers();
+                    members.addPlayer(targetPlayer);
+                    region.setMembers(members);
+
+                }
+
+                sender.sendMessage(ChatColor.GREEN + targetPlayerUsername + " was added to " + region.getId());
 
             } catch (Exception e) {
 
@@ -141,56 +134,48 @@ public class TrustCommand implements CommandExecutor {
 
             try {
 
-                Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+                SQLiteClaimData claimData = EasyGuard.SQLITE_MANAGER.getClaim(player.getUniqueId().toString(), location);
 
-                if (targetLocaiton == null) {
+                if (claimData == null) {
 
                     sender.sendMessage(ChatColor.RED + "Not found!");
                     return true;
 
                 }
 
-                BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
-
-                ApplicableRegionSet applicableRegionSet = WorldGuard
+                ProtectedRegion region = WorldGuard
                         .getInstance()
                         .getPlatform()
                         .getRegionContainer()
                         .get(localPlayer.getWorld())
-                        .getApplicableRegions(
-                                targetLocaitonAsVector
-                        );
+                        .getRegion(claimData.getTruename());
 
-                for (ProtectedRegion region : applicableRegionSet) {
+                DefaultDomain owners = region.getOwners();
+                DefaultDomain members = region.getMembers();
 
-                    DefaultDomain owners = region.getOwners();
-                    DefaultDomain members = region.getMembers();
+                if (!owners.contains(localPlayer)) {
 
-                    if (!owners.contains(localPlayer)) {
-
-                        sender.sendMessage(ChatColor.RED + "You cannot do that!");
-                        continue;
-
-                    }
-
-                    LocalPlayer targetPlayer = EasyGuard.getWorldGuard().wrapPlayer(Bukkit.getPlayer(targetPlayerUsername));
-
-                    if (targetPlayerUsername.equalsIgnoreCase(player.getDisplayName())) {
-
-                        sender.sendMessage(ChatColor.RED + "You cannot do that!");
-                        continue;
-
-                    }
-
-                    owners.removePlayer(targetPlayer);
-                    members.removePlayer(targetPlayer);
-
-                    region.setOwners(owners);
-                    region.setMembers(members);
-
-                    sender.sendMessage(ChatColor.GREEN + targetPlayerUsername + " was removed from " + region.getId());
+                    sender.sendMessage(ChatColor.RED + "You cannot do that!");
+                    return true;
 
                 }
+
+                LocalPlayer targetPlayer = EasyGuard.getWorldGuard().wrapPlayer(Bukkit.getPlayer(targetPlayerUsername));
+
+                if (targetPlayerUsername.equalsIgnoreCase(player.getDisplayName())) {
+
+                    sender.sendMessage(ChatColor.RED + "You cannot do that!");
+                    return true;
+
+                }
+
+                owners.removePlayer(targetPlayer);
+                members.removePlayer(targetPlayer);
+
+                region.setOwners(owners);
+                region.setMembers(members);
+
+                sender.sendMessage(ChatColor.GREEN + targetPlayerUsername + " was removed from " + region.getId());
 
             } catch (Exception e) {
 
@@ -208,46 +193,38 @@ public class TrustCommand implements CommandExecutor {
 
             try {
 
-                Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), location));
+                SQLiteClaimData claimData = EasyGuard.SQLITE_MANAGER.getClaim(player.getUniqueId().toString(), location);
 
-                if (targetLocaiton == null) {
+                if (claimData == null) {
 
                     sender.sendMessage(ChatColor.RED + "Not found!");
                     return true;
 
                 }
 
-                BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
-
-                ApplicableRegionSet applicableRegionSet = WorldGuard
+                ProtectedRegion region = WorldGuard
                         .getInstance()
                         .getPlatform()
                         .getRegionContainer()
                         .get(localPlayer.getWorld())
-                        .getApplicableRegions(
-                                targetLocaitonAsVector
-                        );
+                        .getRegion(claimData.getTruename());
 
-                for (ProtectedRegion region : applicableRegionSet) {
+                DefaultDomain owners = region.getOwners();
+                DefaultDomain members = region.getMembers();
 
-                    DefaultDomain owners = region.getOwners();
-                    DefaultDomain members = region.getMembers();
+                String ownersString = this.toUserFriendlyStringConvertUUID(owners.toUserFriendlyString());
+                String membersString = this.toUserFriendlyStringConvertUUID(members.toUserFriendlyString());
 
-                    String ownersString = this.toUserFriendlyStringConvertUUID(owners.toUserFriendlyString());
-                    String membersString = this.toUserFriendlyStringConvertUUID(members.toUserFriendlyString());
+                if (!owners.contains(localPlayer)) {
 
-                    if (!owners.contains(localPlayer)) {
-
-                        sender.sendMessage(ChatColor.RED + "You cannot do that!");
-                        continue;
-
-                    }
-
-                    sender.sendMessage(String.format("%s%s%s has the following players trusted:", ChatColor.GOLD, region.getId(), ChatColor.GREEN));
-                    sender.sendMessage(String.format("%sOwners: %s%s", ChatColor.BLUE, ChatColor.GOLD, ownersString));
-                    sender.sendMessage(String.format("%sMembers: %s%s", ChatColor.BLUE, ChatColor.GOLD, membersString));
+                    sender.sendMessage(ChatColor.RED + "You cannot do that!");
+                    return true;
 
                 }
+
+                sender.sendMessage(String.format("%s%s%s has the following players trusted:", ChatColor.GOLD, region.getId(), ChatColor.GREEN));
+                sender.sendMessage(String.format("%sOwners: %s%s", ChatColor.BLUE, ChatColor.GOLD, ownersString));
+                sender.sendMessage(String.format("%sMembers: %s%s", ChatColor.BLUE, ChatColor.GOLD, membersString));
 
             } catch (Exception e) {
 

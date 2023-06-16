@@ -141,7 +141,3 @@ ANTI_SPAM_WARNING_COUNT: 3
 # BAN_IP: Ban the player's ip
 # LOG_ONLY: Log the player
 ANTI_SPAM_ACTION: KICK
-
-# USER DATA - DO NOT CHANGE
-
-data:

@@ -9,6 +9,8 @@ import com.sk89q.worldguard.protection.flags.Flag;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import github.aixoio.easyguard.EasyGuard;
+import github.aixoio.easyguard.util.sqlite.SQLiteDataMode;
+import github.aixoio.easyguard.util.sqlite.data.SQLiteClaimData;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -61,25 +63,21 @@ public class ResizeClaimCommand implements CommandExecutor {
 
             String regionName = args[0];
 
-            Location targetLocaiton = EasyGuard.getPlugin().getConfig().getLocation(String.format("data.%s.%s.location", player.getDisplayName(), regionName));
+            SQLiteClaimData claimData = EasyGuard.SQLITE_MANAGER.getClaim(player.getUniqueId().toString(), regionName);
 
-            if (targetLocaiton == null) {
+            if (claimData == null) {
 
                 sender.sendMessage(ChatColor.RED + "Not found!");
                 return true;
 
             }
 
-            BlockVector3 targetLocaitonAsVector = BlockVector3.at(targetLocaiton.getX(), targetLocaiton.getY(), targetLocaiton.getZ());
-
-            ApplicableRegionSet applicableRegionSet = WorldGuard
+            ProtectedRegion region = WorldGuard
                     .getInstance()
                     .getPlatform()
                     .getRegionContainer()
                     .get(localPlayer.getWorld())
-                    .getApplicableRegions(
-                            targetLocaitonAsVector
-                    );
+                    .getRegion(claimData.getTruename());
 
             boolean bypassSize = false;
 
@@ -140,33 +138,32 @@ public class ResizeClaimCommand implements CommandExecutor {
 
             }
 
-            for (ProtectedRegion region : applicableRegionSet) {
+            if (!region.getOwners().contains(localPlayer)) return true;
 
-                if (!region.getOwners().contains(localPlayer)) continue;
+            Map<Flag<?>, Object> flags = region.getFlags();
 
+            DefaultDomain owners = region.getOwners();
+            DefaultDomain members = region.getMembers();
 
-                Map<Flag<?>, Object> flags = region.getFlags();
+            WorldGuard.getInstance().getPlatform().getRegionContainer().get(localPlayer.getWorld()).removeRegion(region.getId());
 
-                DefaultDomain owners = region.getOwners();
-                DefaultDomain members = region.getMembers();
+            ProtectedCuboidRegion newrg = new ProtectedCuboidRegion(region.getId(), blockVector1, blockVector2);
 
-                WorldGuard.getInstance().getPlatform().getRegionContainer().get(localPlayer.getWorld()).removeRegion(region.getId());
+            newrg.setOwners(owners);
+            newrg.setMembers(members);
 
-                ProtectedCuboidRegion newrg = new ProtectedCuboidRegion(region.getId(), blockVector1, blockVector2);
+            newrg.setFlags(flags);
 
-                newrg.setOwners(owners);
-                newrg.setMembers(members);
+            WorldGuard.getInstance().getPlatform().getRegionContainer().get(localPlayer.getWorld()).addRegion(newrg);
 
-                newrg.setFlags(flags);
+            claimData.setWorld(player.getWorld().getName());
+            claimData.setX((int) x1);
+            claimData.setY((int) y1);
+            claimData.setZ((int) z1);
 
-                WorldGuard.getInstance().getPlatform().getRegionContainer().get(localPlayer.getWorld()).addRegion(newrg);
+            EasyGuard.SQLITE_MANAGER.setClaim(claimData, SQLiteDataMode.UPDATE);
 
-                sender.sendMessage(ChatColor.GREEN + "Claim resized with the name of " + ChatColor.BOLD + ChatColor.LIGHT_PURPLE + args[0]);
-
-                EasyGuard.getPlugin().getConfig().set(String.format("data.%s.%s.location", player.getDisplayName(), args[0]), new Location(player.getWorld(), x1, y1, z1));
-                EasyGuard.getPlugin().saveConfig();
-
-            }
+            sender.sendMessage(ChatColor.GREEN + "Claim resized with the name of " + ChatColor.BOLD + ChatColor.LIGHT_PURPLE + args[0]);
 
 
         } catch (Exception e) {
