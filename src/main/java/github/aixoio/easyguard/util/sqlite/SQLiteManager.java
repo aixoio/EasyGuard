@@ -58,6 +58,35 @@ public class SQLiteManager {
 
     }
 
+    public SQLiteClaimData getClaimByRegionID(String regionID) throws SQLException {
+
+        PreparedStatement statement = this.con.prepareStatement("SELECT * FROM claims WHERE truename = ? LIMIT 1");
+        statement.setString(1, regionID);
+
+        ResultSet results = statement.executeQuery();
+
+        if (results.next()) {
+
+            final int id = results.getInt("id");
+            final String uuidFromDB = results.getString("uuid");
+            final String nameFromDB = results.getString("name");
+            final int x = results.getInt("x");
+            final int y = results.getInt("y");
+            final int z = results.getInt("z");
+            final String world = results.getString("world");
+            final String truename = results.getString("truename");
+
+            SQLiteClaimData data = new SQLiteClaimData(id, uuidFromDB, nameFromDB, x, y, z, world, truename);
+
+            return data;
+
+        }
+
+        return null;
+
+
+    }
+
     public LinkedList<SQLiteClaimData> getClaims(String uuid) throws SQLException {
 
         PreparedStatement statement = this.con.prepareStatement("SELECT * FROM claims WHERE uuid = ?");
