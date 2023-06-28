@@ -1,5 +1,6 @@
 package github.aixoio.easyguard.commands;
 
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;
@@ -7,6 +8,7 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import github.aixoio.easyguard.EasyGuard;
 import github.aixoio.easyguard.util.sqlite.data.SQLiteClaimData;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -51,8 +53,30 @@ public class WhereClaimCommand implements CommandExecutor {
 
             }
 
-            sender.sendMessage(ChatColor.GREEN + "The location of " + claimData.getName() + " is:" + ChatColor.YELLOW + " X: " + claimData.getX() +
-                    ", Y: " + claimData.getY() + ", Z: " + claimData.getZ());
+            ProtectedRegion region = null;
+
+            try {
+
+                region = WorldGuard.getInstance().getPlatform().getRegionContainer().get(BukkitAdapter.adapt(Bukkit.getWorld(claimData.getWorld()))).getRegion(claimData.getTruename());
+
+            } catch (Exception e) {
+
+                sender.sendMessage(ChatColor.RED + "Not found!");
+                return true;
+
+            }
+
+            if (region == null) {
+
+                sender.sendMessage(ChatColor.RED + "Not found!");
+                return true;
+
+            }
+
+            sender.sendMessage(ChatColor.GREEN + "The location of " + claimData.getName() + " position 1 is:" + ChatColor.YELLOW + " X: " + region.getMinimumPoint().getX() +
+                    ", Y: " + region.getMinimumPoint().getY() + ", Z: " + region.getMinimumPoint().getZ());
+            sender.sendMessage(ChatColor.GREEN + "The location of " + claimData.getName() + " position 2 is:" + ChatColor.YELLOW + " X: " + region.getMaximumPoint().getX() +
+                    ", Y: " + region.getMaximumPoint().getY() + ", Z: " + region.getMaximumPoint().getZ());
 
         } catch (Exception e) {
 
