@@ -48,22 +48,7 @@ public class ReKillGuardDamageEvent implements Listener {
 
         }
 
-        if (allnullvictom) {
-
-            victom.sendMessage(ChatColor.RED + "You cannot be damaged when you have no items in your inventory!");
-            attacker.sendMessage(ChatColor.RED + "You cannot damage players that cannot be damaged!");
-
-            e.setCancelled(true);
-
-        }
-
-        if (allnullattacker) {
-
-            attacker.sendMessage(ChatColor.RED + "You cannot damage other players when you have no items in your inventory!");
-
-            e.setCancelled(true);
-
-        }
+        if (allnullattacker || allnullvictom) e.setCancelled(true);
 
     }
 
