@@ -113,3 +113,11 @@ buildNumber.properties
 run/
 
 server
+
+build/
+bin/
+.gradle/
+
+jd-gui.cfg
+
+!gradle-wrapper.jar

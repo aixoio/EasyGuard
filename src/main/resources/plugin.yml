@@ -1,5 +1,5 @@
 name: EasyGuard
-version: '${project.version}'
+version: '${version}'
 main: github.aixoio.easyguard.EasyGuard
 api-version: 1.19
 authors: [aixoio]
