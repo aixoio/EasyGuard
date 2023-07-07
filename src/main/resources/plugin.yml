@@ -1,6 +1,6 @@
 name: EasyGuard
 version: '${version}'
-main: github.aixoio.easyguard.EasyGuard
+main: com.github.aixoio.easyguard.EasyGuard
 api-version: 1.19
 authors: [aixoio]
 depend:
