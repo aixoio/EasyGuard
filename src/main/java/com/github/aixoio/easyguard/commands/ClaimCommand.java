@@ -93,7 +93,7 @@ public class ClaimCommand implements CommandExecutor {
 
                 String regionName = args[0];
 
-                String name = String.format("%s_%s_%d", player.getDisplayName().toLowerCase(), regionName, random.nextInt());
+                String name = String.format("%s_%s_%d", ChatColor.stripColor(player.getDisplayName()).toLowerCase(), regionName, random.nextInt());
 
                 boolean bypassSize = false;
 
